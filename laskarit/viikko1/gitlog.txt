@@ -1,0 +1,95 @@
+commit 35c8ea74fa2e2dd44a54714759ceed64e807a463
+Author: Tapio Elomaa <tapio.elomaa@helsinki.fi>
+Date:   Thu Mar 18 22:02:11 2021 +0200
+
+    muutoksia
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 6adcb9e9e0d0806ec3cb76ed425541209589213a
+Author: Tapio Elomaa <tapio.elomaa@helsinki.fi>
+Date:   Thu Mar 18 22:00:43 2021 +0200
+
+    harjoittelua
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 0615642bba55df34e1c5e2bdb893a6b73ef785ef
+Author: Tapio Elomaa <tapio.elomaa@helsinki.fi>
+Date:   Thu Mar 18 21:55:59 2021 +0200
+
+    -p patch muoto
+
+ eka.txt    | 2 +-
+ kolmas.txt | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit dd327f6d00709a4ef4506981ca2e41394989c86b
+Author: Tapio Elomaa <tapio.elomaa@helsinki.fi>
+Date:   Thu Mar 18 21:54:06 2021 +0200
+
+    muutettu nimi
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 0d7a0fac996a210709c47281bd7e50f4c30e07f9
+Author: Tapio Elomaa <tapio.elomaa@helsinki.fi>
+Date:   Thu Mar 18 21:52:52 2021 +0200
+
+    poisto
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 4e75af78e693209289425579e84906be067098f2
+Author: Tapio Elomaa <tapio.elomaa@helsinki.fi>
+Date:   Thu Mar 18 21:35:53 2021 +0200
+
+    hakemisto
+
+ stuff/tiedosto2.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 950ed6c44bec6b1134c18a236f6adcfd2ed184c8
+Author: Tapio Elomaa <tapio.elomaa@helsinki.fi>
+Date:   Thu Mar 18 21:34:04 2021 +0200
+
+    neljäs committi editoin toinen.txt ja kolmas.txt
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit 7b06675e30093a83519c1ff9bb57131c000ad90a
+Author: Tapio Elomaa <tapio.elomaa@helsinki.fi>
+Date:   Thu Mar 18 21:31:38 2021 +0200
+
+    kolmas committi
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit bef6cbf6a528992f8855efe5a79edde9cee1b4ac
+Author: Tapio Elomaa <tapio.elomaa@helsinki.fi>
+Date:   Thu Mar 18 21:28:31 2021 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 1df40ae966cbbfcfc53af49cdb449e3e783b99c2
+Author: Tapio Elomaa <tapio.elomaa@helsinki.fi>
+Date:   Thu Mar 18 21:22:43 2021 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
