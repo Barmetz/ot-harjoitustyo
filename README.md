@@ -7,3 +7,5 @@ Kirjoita jotain tekstiä hakemiston juuressa olevaan tiedostoon README.md
 [gitlog.txt](https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/laskarit/viikko1/gitlog.txt)
 
 [komentorivi.txt](https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/laskarit/viikko1/kometorivi.txt)
+
+Vielä koneelta pieni muutos
