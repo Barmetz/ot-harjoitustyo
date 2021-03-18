@@ -5,4 +5,5 @@ Kirjoita jotain tekstiä hakemiston juuressa olevaan tiedostoon README.md
    * näemme pian tekstin ruudulla muotoiltuna
 
 [gitlog.txt](https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/laskarit/viikko1/gitlog.txt)
+
 [komentorivi.txt](https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/laskarit/viikko1/kometorivi.txt)
