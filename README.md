@@ -9,3 +9,5 @@ Kirjoita jotain tekstiä hakemiston juuressa olevaan tiedostoon README.md
 [komentorivi.txt](https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/laskarit/viikko1/kometorivi.txt)
 
 Vielä koneelta pieni muutos
+
+Epäsynkroonia varten
