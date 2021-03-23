@@ -4,6 +4,7 @@ pelin. Jos klikkaa miinaa häviää pelin.
 ## Käyttöliittymä
 Alustavasti paljon inspiraation alkuperäisestä versiosta. Peliruudukko, jossa peliä pelataan. Endgame ikkuna, joka ilmoittaa voititko vai hävisitkö pelin ja erilaisia tuloksia. 
 Painikkeet uudelle pelille ja sovelluksen lopetukselle. Asetusikkuna, jossa voi vaihtaa ruudukon kokoa ja miinojen määrää. Statistiikkaikkuna, josta näkee samat tulokset kuin endgame ikkunasta.
+<img src="https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/Scan.jpg">
 ## Toiminnallisuudet
 #### Aluksi
  - Toimiva peli. Ruutujen arvot, miinat, klikkailu.
