@@ -1,3 +1,4 @@
+[**Viikko 1**]
 Kirjoita jotain tekstiä hakemiston juuressa olevaan tiedostoon README.md
 
    * muotoile tekstisi **markdown**-_notaatiota_ käyttäen
@@ -11,3 +12,5 @@ Kirjoita jotain tekstiä hakemiston juuressa olevaan tiedostoon README.md
 Vielä koneelta pieni muutos
 
 Epäsynkroonia varten
+
+[**Viikko 2**]
