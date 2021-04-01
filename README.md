@@ -1,20 +1,8 @@
-**Viikko 1**
-Kirjoita jotain tekstiä hakemiston juuressa olevaan tiedostoon README.md
-
-   * muotoile tekstisi **markdown**-_notaatiota_ käyttäen
-   * tee tiedostoon esim. jokin otsikko, tavallista _tekstiä_, joka sisältää **lihavoituja** ja *kursivoituja* osuuksia
-   * näemme pian tekstin ruudulla muotoiltuna
-
-[gitlog.txt](https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/laskarit/viikko1/gitlog.txt)
-
-[komentorivi.txt](https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/laskarit/viikko1/kometorivi.txt)
-
-Vielä koneelta pieni muutos
-
-Epäsynkroonia varten
+# Miinaharava
+Miinaharava-peli. Tarkoitus käyttää logiikka ja vähän onnea ja etsiä kaikki miinat. Varo jännetuppitulehdusta.  
 
 ## Dokumentaatio
 
-[työaikakirjanpito](https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/tuntikirjanpito.md)
-
 [vaatimusmäärittely](https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/vaatimusmaarittely.md)
+
+[työaikakirjanpito](https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/tuntikirjanpito.md)
