@@ -1,6 +1,6 @@
 from square import Square
 from random import randint
-class Grid:
+class MSGrid:
     def __init__(self, height, width, mines):
         self.mines = mines
         self.height = height
@@ -71,7 +71,7 @@ class Grid:
                     self.grid[j][i].value = str(number)
 
 if __name__ == "__main__":
-    a = Grid(10, 10, 5)
+    a = MSGrid(10, 10, 5)
     print(a)
     a.placeMines()
     print(a)    

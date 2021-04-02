@@ -1,5 +1,5 @@
 import pygame, sys
-from gridLogic import Grid
+from gridLogic import MSGrid
 class Main():
     def __init__(self):
         pygame.init()
@@ -10,7 +10,7 @@ class Main():
         self.gridheight = 10
         self.gridwidth = 10
         self.mineTotal = 10
-        self.gridObj = Grid(self.gridheight,self.gridwidth,self.mineTotal)
+        self.gridObj = MSGrid(self.gridheight,self.gridwidth,self.mineTotal)
         self.HiddenCount = self.gridheight * self.gridwidth
         self.colors =  [(210,210,210), (150,150,150),(255,255,255)]
         self.font = pygame.font.Font(pygame.font.get_default_font(), 20)
@@ -67,8 +67,8 @@ class Main():
     def drawText(self, text, y, x, font, color):
         textObj = font.render(text, True, color)
         textsquare = textObj.get_rect()
-        textsquare.y = y-textsquare.height/2
-        textsquare.x = x-textsquare.width/2
+        textsquare.y = y-textsquare.height//2
+        textsquare.x = x-textsquare.width//2
         self.Surface.blit(textObj, textsquare)
 
     def getsquareCorner(self, y, x):

@@ -4,3 +4,6 @@
 /laskarit/viikko2/unicafe/src/tests/__pycache__/
 /laskarit/viikko2/unicafe/.coverage
 /laskarit/viikko2/unicafe/htmlcov
+/src/__pycache__/gridLogic.cpython-38.pyc
+/src/__pycache__/square.cpython-38.pyc
+/src/gridVisual.py
