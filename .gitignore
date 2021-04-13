@@ -7,3 +7,9 @@
 /src/__pycache__/gridLogic.cpython-38.pyc
 /src/__pycache__/square.cpython-38.pyc
 /src/gridVisual.py
+__pycache__
+.vscode
+.coverage
+.pytest_cache
+htmlcov
+
