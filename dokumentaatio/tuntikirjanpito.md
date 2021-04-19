@@ -4,3 +4,4 @@
 |1.4.2021|4.5h|Pelin pohjakoodin kirjoitus|
 |2.4.2021|6h|Tkinter tutustuminen ja pelin muuttaminen pygamesta tkinteriin|
 |13.4.2021|2h|Poetryn määrittelyä|
+|19-20.4.2021|3h|Pixel Art, Pillow, poistettu ikkunan resize pelistä|
