@@ -7,6 +7,7 @@ authors = ["Tapio Elomaa <tapio.elomaa@helsinki.fi>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 invoke = "^1.5.0"
+Pillow = "^8.2.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.3"

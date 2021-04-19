@@ -2,6 +2,7 @@ import sys
 from tkinter import *
 from tkinter import ttk
 from gridLogic import MSGrid
+from PIL import Image, ImageTk
 
 class Main():
     def __init__(self):
@@ -15,19 +16,31 @@ class Main():
 
     def main(self):
         self.tk = Tk()
+        self.create_images()
         self.GUIgrid()
         self.playtext()
         self.GUIgrid_size()
         self.tk.mainloop()
     
+    def create_images(self):
+        self.images_numbers = []
+        self.images_numbers.append(PhotoImage(file="src/images/clicked.png"))
+        for i in range(1, 9):
+            self.images_numbers.append(ImageTk.PhotoImage(Image.open("src/images/number"+str(i)+".png").resize((25,25))))
+        self.images_tile = []
+        self.images_tile.append(ImageTk.PhotoImage(Image.open("src/images/tile.png").resize((50,50))))
+        self.images_tile.append(ImageTk.PhotoImage(Image.open("src/images/mine.png").resize((25,25))))
+        self.images_tile.append(ImageTk.PhotoImage(Image.open("src/images/flag.png").resize((25,25))))
+        self.images_tile.append(ImageTk.PhotoImage(Image.open("src/images/wrong_flag.png").resize((50,50))))
+
     def GUIgrid(self):
         for j in range(1,self.playheight+1):
             Grid.rowconfigure(self.tk, j, weight=1)
             widgetrow = []
             for i in range(self.playwidth):
                 Grid.columnconfigure(self.tk, i, weight=1)
-                button = Button(self.tk)
-                button.grid(row=j, column=i, sticky=NSEW)
+                button = Button(self.tk, width=50, height=50, image=self.images_tile[0])
+                button.grid(row=j, column=i)
                 button.bind("<Button-1>", self.leftClick_indicator(j,i))
                 button.bind("<Button-3>", self.rightClick_indicator(j,i))
                 widgetrow.append(button)
@@ -38,18 +51,17 @@ class Main():
     
     def GUIgrid_size(self):
         self.tk.geometry(f"{self.playwidth*50}x{(self.playheight + 2)*50}+800+300")
-        self.tk.minsize(self.playwidth*22,(self.playheight + 2)*22) 
+        self.tk.minsize(self.playwidth*22,(self.playheight + 2)*22)
+        self.tk.resizable(False,False) 
 
     def playtext(self):
         self.tk.resizable(True,True)
         top = Label(self.tk, text="Minesweeper")
         botleft = Label(self.tk, text="Clock: 0")
         botright = Label(self.tk, text="Mines: 0")
-        sizegrip = ttk.Sizegrip(self.tk)
         top.grid(row=0, column=0, columnspan=self.playwidth)
         botleft.grid(row=self.playheight+1, column=0, columnspan=self.playwidth//2)
         botright.grid(row=self.playheight+1, column=(self.playwidth//2)-1, columnspan=self.playwidth//2)
-        sizegrip.grid(row=self.playheight+1, column=self.playwidth-1, sticky=SE)
         Grid.rowconfigure(self.tk, 0, weight=1)
         Grid.rowconfigure(self.tk, self.playheight+1, weight=1)
 
@@ -62,8 +74,11 @@ class Main():
     def leftClick(self, j, i):
         self.gridObj.grid[j-1][i].isHidden = False
         self.destroyButton(j, i)
-        label = Label(self.tk, text=f"{self.gridObj.grid[j-1][i].value}", bg="white", fg="black", borderwidth=2, relief="sunken")
-        label.grid(row=j, column=i, sticky=NSEW)
+        if self.gridObj.grid[j-1][i].value=="M":
+            label = Label(self.tk, image=self.images_tile[1], bg="white", fg="black", borderwidth=2, relief="sunken", width=52, height=52)
+        else:
+            label = Label(self.tk, image=self.images_numbers[int(self.gridObj.grid[j-1][i].value)], bg="white", fg="black", borderwidth=2, relief="sunken", width=52, height=52)
+        label.grid(row=j, column=i)
         self.widgets[j-1][i] = label
 
     def destroyButton(self, j, i):
@@ -78,6 +93,7 @@ class Main():
         else:
             self.widgets[j-1][i].config(bg="red", activebackground="red") 
             self.gridObj.grid[j-1][i].isMarked = True
+
 if __name__ == "__main__":
     a = Main()
     a.main()
