@@ -14,8 +14,8 @@ class Main():
         self.boxsize = 50
         
         self.gridObj = MSGrid(self.playheight, self.playwidth, self.mineTotal)
-        self.widgets = []
-        self.texts = []
+        self.button_widgets = []
+        self.text_widgets = []
         self.flag = 0
         self.clickcount = 0
 
@@ -67,7 +67,7 @@ class Main():
                 button.bind("<Leave>", self.leftClick_leave_indicator(j, i))
                 button.bind("<Button-3>", self.rightClick_indicator(j, i))
                 widgetrow.append(button)
-            self.widgets.append(widgetrow)
+            self.button_widgets.append(widgetrow)
 
     #Resizes the main windown according to the amount of squares
     def GUIgrid_size(self):
@@ -87,8 +87,9 @@ class Main():
                       column=(self.playwidth//2)-1, columnspan=self.playwidth//2)
         Grid.rowconfigure(self.tk, 0, weight=1)
         Grid.rowconfigure(self.tk, self.playheight+1, weight=1)
-        self.texts.append(botleft)
-        self.texts.append(botright)
+        self.text_widgets.append(botleft)
+        self.text_widgets.append(botright)
+        self.text_widgets.append(top)
 
     #Wrappers for buttons so that callback fuction doesn't break them
     def leftClick_indicator(self, j, i):
@@ -106,12 +107,12 @@ class Main():
     #The functions for Buttons
     def leftClick(self, j, i):
         if not self.gridObj.grid[j-1][i].marked:
-            self.widgets[j-1][i].config(image=self.images_numbers[0])
+            self.button_widgets[j-1][i].config(image=self.images_numbers[0])
             self.leave = False
 
     def leftClick_leave(self, j, i):
         if not self.gridObj.grid[j-1][i].marked and self.gridObj.grid[j-1][i].hidden:
-            self.widgets[j-1][i].config(image=self.images_tile[0])
+            self.button_widgets[j-1][i].config(image=self.images_tile[0])
             self.leave = True
 
     def leftClick_release(self, j, i):
@@ -129,26 +130,26 @@ class Main():
                     label = Label(self.tk, image=self.images_numbers[int(
                         self.gridObj.grid[j-1][i].value)], borderwidth=2, bg="white", relief="sunken", width=52, height=52)
                 label.grid(row=j, column=i)
-                self.widgets[j-1][i] = label
+                self.button_widgets[j-1][i] = label
             self.clickcount += 1
             if self.clickcount == self.playwidth*self.playheight-self.mineTotal:
                 self.game_over(False)
 
     def destroyButton(self, j, i):
-        button = self.widgets[j-1][i]
-        self.widgets[j-1][i] = 0
+        button = self.button_widgets[j-1][i]
+        self.button_widgets[j-1][i] = 0
         button.destroy()
 
     def rightClick(self, j, i):
         if self.gridObj.grid[j-1][i].marked:
-            self.widgets[j-1][i].config(image=self.images_tile[0])
+            self.button_widgets[j-1][i].config(image=self.images_tile[0])
             self.gridObj.grid[j-1][i].marked = False
             self.flag -= 1
         else:
-            self.widgets[j-1][i].config(image=self.images_tile[2])
+            self.button_widgets[j-1][i].config(image=self.images_tile[2])
             self.gridObj.grid[j-1][i].marked = True
             self.flag += 1
-        self.texts[1].config(text=f"Mines: {self.mineTotal-self.flag}")
+        self.text_widgets[1].config(text=f"Mines: {self.mineTotal-self.flag}")
 
     #When clicking a 0 square automatically open the all connected 0 squares and their neighbours
     def update_zeropath(self, j, i):
@@ -159,14 +160,14 @@ class Main():
             label = Label(self.tk, image=self.images_numbers[int(
                 self.gridObj.grid[coord[0]][coord[1]].value)], borderwidth=2, bg="white", relief="sunken", width=52, height=52)
             label.grid(row=coord[0]+1, column=coord[1])
-            self.widgets[coord[0]][coord[1]] = label
+            self.button_widgets[coord[0]][coord[1]] = label
 
     #Game over text and pop-up.
     def game_over(self, state):
         if state:
             self.game_over_popup("Game Over. You lost!")
         else:
-            self.texts[1].config(text=f"Mines: 0")
+            self.text_widgets[1].config(text=f"Mines: 0")
             self.game_over_popup("Game Over. You win!")
 
     def game_over_popup(self, text):
@@ -191,11 +192,23 @@ class Main():
     def reset(self, pop):
         pop.destroy()
         self.gridObj = MSGrid(self.playheight, self.playwidth, self.mineTotal)
-        self.widgets = []
+        self.destroy_widgets()
         self.GUIgrid()
         self.playtext()
         self.clickcount = 0
         self.flag = 0
+
+    #destroys button 
+    def destroy_widgets(self):
+        for widget in self.text_widgets:
+            widget.destroy()
+        self.text_widgets = []
+        for row in range(len(self.button_widgets)):
+            for column in range(len(self.button_widgets[0])):
+                button = self.button_widgets[row][column]
+                self.button_widgets[row][column] = 0
+                button.destroy()
+        self.button_widgets = []
 
 
 if __name__ == "__main__":
