@@ -6,6 +6,10 @@ Alustavasti paljon inspiraation alkuperäisestä versiosta. Peliruudukko, jossa 
 Painikkeet uudelle pelille ja sovelluksen lopetukselle. Asetusikkuna, jossa voi vaihtaa ruudukon kokoa ja miinojen määrää. Statistiikkaikkuna, josta näkee samat tulokset kuin endgame ikkunasta.
 <img src="https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/Scan.jpg">
 ## Toiminnallisuudet
+#### Tällä hetkellä
+ - Toimiva peli. Ruutujen arvot, miinat, klikkailu. Automaattinen tyhjien avaus.
+ - Mahdollisuus liputtaa ruutuja osoittamaan miinaa ja miinalaskuri.
+ - teema
 #### Aluksi
  - Toimiva peli. Ruutujen arvot, miinat, klikkailu.
  - Statistiikka ja muut ikkunat. Kello.
