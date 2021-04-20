@@ -33,6 +33,9 @@ Yliopiston koneella
 ```
 curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 source $HOME/.poetry/env
+```
+muokkaa pyproject.toml tiedostoon pythonin versioksi 3.6
+```
 poetry run invoke start
 ```
 ## Log
