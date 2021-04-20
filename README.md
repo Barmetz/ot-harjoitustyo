@@ -7,6 +7,29 @@ Miinaharava-peli. Tarkoitus käyttää logiikka ja vähän onnea ja etsiä kaikk
 
 [työaikakirjanpito](https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/tuntikirjanpito.md)
 
+## Asennus
+Asenna [python3](https://realpython.com/installing-python/), [pip](https://pip.pypa.io/en/stable/installing/) ja [poetry](https://python-poetry.org/docs/).
+Käytä komentoja 
+```
+python3
+```
+```
+pip3
+```
+Etsi pelin hakemisto ja aja komento
+```
+poetry install
+```
+Peli käynnistyy
+```
+poetry run invoke start
+```
+Testikattavuusraportti
+```
+poetry run invoke coverage
+poetry run invoke coverage-report
+```
+
 ## Log
 Ohjeissa sanotaan, että README siistinä, mutta pidän tämän osion toistaiseksi. Helpotta huomattavasti projektin seuraamista.
 ### viikko3
