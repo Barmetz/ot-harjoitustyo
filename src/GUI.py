@@ -1,17 +1,19 @@
 import sys
 from tkinter import Label, Button, messagebox, Tk, Grid, NSEW, Toplevel
 from tkinter import ttk
-from gridLogic import MSGrid
+from gridlogic import MSGrid
 from PIL import Image, ImageTk
 
 
 class Main():
     def __init__(self):
+        #These will become main attributes of the game
         self.playheight = 10
         self.playwidth = 10
-        self.mineTotal = 7
-        self.gridObj = MSGrid(self.playheight, self.playwidth, self.mineTotal)
+        self.mineTotal = 5
         self.boxsize = 50
+        
+        self.gridObj = MSGrid(self.playheight, self.playwidth, self.mineTotal)
         self.widgets = []
         self.texts = []
         self.flag = 0
@@ -26,8 +28,10 @@ class Main():
         self.GUIgrid_size()
         self.tk.mainloop()
 
-    def create_images(self):
-        self.images_numbers = []
+    #Creates arrays for tile graphics and resize images acording to boxsize
+    def create_images(self): 
+        self.images_numbers = []  #Images for the numbers
+        
         image_size = (self.boxsize, self.boxsize)
         half_image_size = (self.boxsize//2, self.boxsize//2)
         self.images_numbers.append(ImageTk.PhotoImage(
@@ -35,7 +39,9 @@ class Main():
         for i in range(1, 9):
             self.images_numbers.append(ImageTk.PhotoImage(Image.open(
                 "src/images/number"+str(i)+".png").resize(half_image_size)))
-        self.images_tile = []
+
+        self.images_tile = [] #Images for hidden tiles, flags and mines
+        
         self.images_tile.append(ImageTk.PhotoImage(
             Image.open("src/images/tile.png").resize(image_size)))
         self.images_tile.append(ImageTk.PhotoImage(
@@ -45,7 +51,8 @@ class Main():
         self.images_tile.append(ImageTk.PhotoImage(Image.open(
             "src/images/wrong_flag.png").resize((image_size))))
 
-    def GUIgrid(self):
+    #Generates a grid of tkinter buttons
+    def GUIgrid(self): 
         for j in range(1, self.playheight+1):
             Grid.rowconfigure(self.tk, j, weight=1)
             widgetrow = []
@@ -62,11 +69,13 @@ class Main():
                 widgetrow.append(button)
             self.widgets.append(widgetrow)
 
+    #Resizes the main windown according to the amount of squares
     def GUIgrid_size(self):
         self.tk.geometry(
             f"{self.playwidth*50}x{(self.playheight + 2)*50}+800+300")
         self.tk.resizable(False, False)
 
+    #Generates general label widgets for the UI
     def playtext(self):
         top = Label(self.tk, text="This text will get fixed..... eventually")
         botleft = Label(self.tk, text="Clock: 0")
@@ -81,6 +90,7 @@ class Main():
         self.texts.append(botleft)
         self.texts.append(botright)
 
+    #Wrappers for buttons so that callback fuction doesn't break them
     def leftClick_indicator(self, j, i):
         return lambda Button: self.leftClick(j, i)
 
@@ -93,21 +103,22 @@ class Main():
     def rightClick_indicator(self, j, i):
         return lambda Button: self.rightClick(j, i)
 
+    #The functions for Buttons
     def leftClick(self, j, i):
-        if not self.gridObj.grid[j-1][i].isMarked:
+        if not self.gridObj.grid[j-1][i].marked:
             self.widgets[j-1][i].config(image=self.images_numbers[0])
             self.leave = False
 
     def leftClick_leave(self, j, i):
-        if not self.gridObj.grid[j-1][i].isMarked and self.gridObj.grid[j-1][i].isHidden:
+        if not self.gridObj.grid[j-1][i].marked and self.gridObj.grid[j-1][i].hidden:
             self.widgets[j-1][i].config(image=self.images_tile[0])
             self.leave = True
 
     def leftClick_release(self, j, i):
-        if not self.gridObj.grid[j-1][i].isMarked and not self.leave:
-            self.gridObj.grid[j-1][i].isHidden = False
+        if not self.gridObj.grid[j-1][i].marked and not self.leave:
+            self.gridObj.grid[j-1][i].hidden = False
             if self.gridObj.grid[j-1][i].value == "0":
-                self.update_all_gridObjects(j, i)
+                self.update_zeropath(j, i)
             else:
                 self.destroyButton(j, i)
                 if self.gridObj.grid[j-1][i].value == "M":
@@ -129,19 +140,20 @@ class Main():
         button.destroy()
 
     def rightClick(self, j, i):
-        if self.gridObj.grid[j-1][i].isMarked:
+        if self.gridObj.grid[j-1][i].marked:
             self.widgets[j-1][i].config(image=self.images_tile[0])
-            self.gridObj.grid[j-1][i].isMarked = False
+            self.gridObj.grid[j-1][i].marked = False
             self.flag -= 1
         else:
             self.widgets[j-1][i].config(image=self.images_tile[2])
-            self.gridObj.grid[j-1][i].isMarked = True
+            self.gridObj.grid[j-1][i].marked = True
             self.flag += 1
         self.texts[1].config(text=f"Mines: {self.mineTotal-self.flag}")
 
-    def update_all_gridObjects(self, j, i):
-        self.gridObj.zeroPath_clickcount = 0
-        coordinates, clicks = self.gridObj.zeroPath(j-1, i, [[j-1, i]])
+    #When clicking a 0 square automatically open the all connected 0 squares and their neighbours
+    def update_zeropath(self, j, i):
+        self.gridObj.zeropath_clickcount = 0
+        coordinates, clicks = self.gridObj.zeropath(j-1, i, [[j-1, i]])
         self.clickcount += clicks
         for coord in coordinates:
             label = Label(self.tk, image=self.images_numbers[int(
@@ -149,6 +161,7 @@ class Main():
             label.grid(row=coord[0]+1, column=coord[1])
             self.widgets[coord[0]][coord[1]] = label
 
+    #Game over text and pop-up.
     def game_over(self, state):
         if state:
             self.game_over_popup("Game Over. You lost!")
@@ -174,6 +187,7 @@ class Main():
             f"250x150+{800+25*self.playwidth-125}+{300+(self.playheight + 2)*25-75}")
         pop.resizable(False, False)
 
+    #New game start from endgame window
     def reset(self, pop):
         pop.destroy()
         self.gridObj = MSGrid(self.playheight, self.playwidth, self.mineTotal)

@@ -1,8 +1,8 @@
 class Square:
-    def __init__(self, value, isHidden):
+    def __init__(self):
         self.value = "0"
-        self.isHidden = True
-        self.isMarked = False
+        self.hidden = True
+        self.marked = False
 
     def __str__(self):
         return self.value
