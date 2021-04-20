@@ -8,6 +8,7 @@ Miinaharava-peli. Tarkoitus käyttää logiikka ja vähän onnea ja etsiä kaikk
 [työaikakirjanpito](https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/tuntikirjanpito.md)
 
 ## Log
+Ohjeissa sanotaan, että README siistinä, mutta pidän tämän osion toistaiseksi. Helpotta huomattavasti projektin seuraamista.
 ### viikko3
 -Poistin viikko 2 tehtävät, koska aiheuttivat ongelmia testien kanssa. Ovat vielä tallessa, mutta deadlinen lähestyessä korjaan ongelmat myöhemmin(tarvittaessa?).
 
