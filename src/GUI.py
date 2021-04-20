@@ -187,7 +187,7 @@ class Main():
             f"250x150+{800+25*self.playwidth-125}+{300+(self.playheight + 2)*25-75}")
         pop.resizable(False, False)
 
-    #New game start from endgame window
+    #Start a new game from endgame window
     def reset(self, pop):
         pop.destroy()
         self.gridObj = MSGrid(self.playheight, self.playwidth, self.mineTotal)
