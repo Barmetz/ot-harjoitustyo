@@ -43,7 +43,7 @@ poetry run invoke start
 ## Log
 Ohjeissa sanotaan, että README siistinä, mutta pidän tämän osion toistaiseksi. Helpotta huomattavasti projektin seuraamista.
 
-Virtuaalityöpöydällä toimivuus on vaihtelevaa. Kaatuu useasti sekä heti alussa, että uutta peliä aloittaessa ja välillä klikkauksesta. Ensi viikolla pitää vaihtaa taulukot sanakirjoiksi, koska lisäys haku ja poisto ovat tehokkaampia. Omalla koneella ei ole ollut ongelmia.
+Virtuaalityöpöydällä toimivuus on vaihtelevaa. Kaatuu useasti sekä heti alussa, että uutta peliä aloittaessa ja välillä klikkauksesta. Ensi viikolla pitää vaihtaa taulukot sanakirjoiksi, koska lisäys, haku ja poisto ovat tehokkaampia. Omalla koneella ei ole ollut ongelmia.
 ### viikko3
 -Poistin viikko 2 tehtävät, koska aiheuttivat ongelmia testien kanssa. Ovat vielä tallessa, mutta deadlinen lähestyessä korjaan ongelmat myöhemmin(tarvittaessa?).
 
