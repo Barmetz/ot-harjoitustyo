@@ -29,7 +29,7 @@ Testikattavuusraportti
 poetry run invoke coverage
 poetry run invoke coverage-report
 ```
-Yliopiston koneella
+#### Yliopiston koneella
 ```
 curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 source $HOME/.poetry/env
