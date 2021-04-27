@@ -6,4 +6,5 @@
 |13.4.2021|2h|Poetryn määrittelyä|
 |19-20.4.2021|3h|Pixel Art, Pillow, poistettu ikkunan resize pelistä|
 |20.4.2021|10h|Pillow loppuun, endgame, testit, pylint, 0-ruudun automaattinen avaus|
-|Total|26.5h|----|
+|27.4.2021|13h|settings käsittelijä, settings popup, pakkausrakenne, refaktorointia|
+|Total|39.5h|----|
