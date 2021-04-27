@@ -12,9 +12,9 @@ class MSGrid:
 
     def __str__(self):
         grid = []
-        for j in self.grid:
+        for j in range(self.height):
             row = []
-            for i in j:
+            for i in self.grid[j].values():
                 row.append(i.value)
             grid.append(row)
         return str(grid)
@@ -32,12 +32,12 @@ class MSGrid:
 
     # Generates an empty grid of the initialized size
     def generate_grid(self):
-        grid = []
-        for _ in range(self.height):
-            row = []
-            for _ in range(self.width):
-                row.append(Square())
-            grid.append(row)
+        grid = {}
+        for j in range(self.height):
+            row = {}
+            for i in range(self.width):
+                row[i] = (Square())
+            grid[j] = row
         return grid
 
     # Places initialized amount of mines to the grid

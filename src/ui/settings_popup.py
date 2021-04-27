@@ -1,4 +1,4 @@
-from tkinter import Button, StringVar, Toplevel, Radiobutton
+from tkinter import Button, StringVar, Toplevel, Radiobutton, Grid, NSEW, NW, W, Label, Entry, DISABLED, NORMAL
 
 
 class SettingsPopUp():
@@ -17,45 +17,106 @@ class SettingsPopUp():
         self.popup()
 
     def geometry(self):
-        return f"250x150+{800+(self.boxsize//2)*self.playwidth-125}+{300+(self.playheight + 1)*(self.boxsize//2)-75}"
+        geometry_x = self.root.winfo_x()+(self.boxsize//2)*self.playwidth-150
+        geometry_y = self.root.winfo_y()+(self.playheight + 1)*(self.boxsize//2)-100
+        return f"300x200+{geometry_x}+{geometry_y}"
 
     def popup(self):
         self.pop.focus_set()
         self.pop.grab_set()
         self.pop.title("Settings")
         self.buttons()
+        self.labels()
+        self.grid_config()
         self.pop.geometry(self.geometry())
         self.pop.resizable(False, False)
 
+    def labels(self):
+        label = Label(self.pop, text="Options:")
+        label.grid(row=0, column=0, sticky=NW)
+        texts = ["Height (5-20):", "Width (5-25):", "Mines (1-500):"]
+        for i in range(3):
+            label = Label(self.pop, text=texts[i])
+            label.grid(row=i+1, column=1)
+
     def buttons(self):
-        button1 = Radiobutton(self.pop, text="10x10 grid\n 10 mines",
-                              variable=self.setting, value=self.options[0])
-        button1.grid(row=0, column=0)
-        self.widgets.append(button1)
-        button2 = Radiobutton(self.pop, text="16x16 grid\n 40 mines",
-                              variable=self.setting, value=self.options[1])
-        button2.grid(row=1, column=0)
-        self.widgets.append(button2)
-        button2.deselect()
-        button3 = Radiobutton(self.pop, text="16x30 grid\n 99 mines",
-                              variable=self.setting, value=self.options[2])
-        button3.grid(row=2, column=0)
-        self.widgets.append(button3)
+        texts = ["10x10 grid\n 10 mines",
+                 "16x16 grid\n 40 mines", "16x30 grid\n 99 mines"]
+        for i in range(3):
+            button = Radiobutton(self.pop, variable=self.setting)
+            button.config(
+                text=texts[i], value=self.options[i], command=self.check_custom)
+            button.grid(row=i+1, column=0, sticky=NSEW)
+            self.widgets.append(button)
+        self.custom_game()
         self.set_states()
         button4 = Button(self.pop, text="OK", command=self.change_setting)
-        button4.grid(row=3, column=0)
+        button4.grid(row=4, column=0, sticky=NSEW)
         button5 = Button(self.pop, text="Cancel", command=self.pop.destroy)
-        button5.grid(row=3, column=1)
+        button5.grid(row=4, column=2, sticky=NSEW)
+
+    def custom_game(self):
+        button = Radiobutton(
+            self.pop, text="custom", variable=self.setting, value="1", command=self.check_custom)
+        button.grid(row=0, column=1, sticky=NW)
+        self.widgets.append(button)
+        for i in range(3):
+            entry = Entry(self.pop, width=5)
+            entry.grid(row=i+1, column=2, sticky=W)
+            self.widgets.append(entry)
 
     def set_states(self):
         current = ";".join(self.file_handler.load())
-        for i in range(len(self.options)):
-            if self.options[i] == current:
-                self.widgets[i].select()
-            else:
-                self.widgets[i].deselect()
+        if current not in self.options:
+            self.widgets[3].select()
+        else:
+            self.check_custom()
+            for i in range(len(self.options)):
+                if self.options[i] == current:
+                    self.widgets[i].select()
+                else:
+                    self.widgets[i].deselect()
+
+    def grid_config(self):
+        for j in range(5):
+            Grid.rowconfigure(self.pop, j, weight=1)
+        for i in range(3):
+            Grid.columnconfigure(self.pop, i, weight=1)
 
     def change_setting(self):
-        self.file_handler.write(self.setting.get())
-        self.pop.destroy()
+        if self.setting.get() == "1":
+            correct, setting = self.get_entry()
+            if correct:
+                self.file_handler.write(setting)
+        else:
+            self.file_handler.write(self.setting.get())
         self.game.reset(True)
+        self.pop.after(500, lambda: self.pop.destroy())
+
+    def check_custom(self):
+        if self.setting.get() == "1":
+            for i in self.widgets[4:]:
+                i.config(state=NORMAL)
+        else:
+            for i in self.widgets[4:]:
+                i.config(state=DISABLED)
+
+    def get_entry(self):
+        try:
+            setting = ""
+            height = int(self.widgets[4].get())
+            width = int(self.widgets[5].get())
+            mines = int(self.widgets[6].get())
+            correct = False
+            if 5 <= height <= 20:
+                setting += self.widgets[4].get() + ";"
+                if 5 <= width <= 25:
+                    setting += self.widgets[5].get() + ";"
+                    if 1 <= mines <= 500 and height*width > mines:
+                        setting += self.widgets[6].get() + ";"
+                        correct = True
+            setting += "50"
+            return correct, setting
+        except ValueError:
+            self.pop.destroy()
+            return False, ""

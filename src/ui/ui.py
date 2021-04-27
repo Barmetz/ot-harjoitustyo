@@ -10,10 +10,10 @@ class UI():
         self.root = Tk()
         self.root.title("Minesweeper")
         self.game = GameWindow(self.root, self.file_handler)
+        self.menubar()
         self.main()
 
     def main(self):
-        self.menubar()
         self.root.mainloop()
 
     def settings_pop_up(self):
@@ -22,7 +22,8 @@ class UI():
     def menubar(self):
         menubar = Menu(self.root)
         menu = Menu(menubar, tearoff=0)
-        menu.add_command(label="New Game", command=self.game.reset)
+        menu.add_command(label="New Game",
+                         command=lambda x=False: self.game.reset(x))
         menu.add_command(label="Settings", command=self.settings_pop_up)
         menu.add_separator()
         menu.add_command(label="Exit", command=self.root.destroy)

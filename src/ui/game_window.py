@@ -1,15 +1,17 @@
-from tkinter import Label, Button, Grid, NSEW, Toplevel
+from tkinter import Label, Button, Grid, NSEW, Toplevel, Frame
 from PIL import Image, ImageTk
 from logic.gridlogic import MSGrid
 
 
 class GameWindow():
     def __init__(self, root, file_handler):
-        self.root = root
+        self.rootwindown = root
+        self.root = Frame(self.rootwindown)
+        self.root.pack()
         self.file_handler = file_handler
         self.game_settings()
 
-        self.button_widgets = []
+        self.button_widgets = {}
         self.text_widgets = []
         self.flag = 0
         self.clickcount = 0
@@ -54,10 +56,10 @@ class GameWindow():
     def ui_grid(self):
         for j in range(self.playheight):
             Grid.rowconfigure(self.root, j, weight=1)
-            widgetrow = []
+            widgetrow = {}
             for i in range(self.playwidth):
                 Grid.columnconfigure(self.root, i, weight=1)
-                button = Button(self.root, width=50, height=50,
+                button = Button(self.root, width=self.boxsize, height=self.boxsize,
                                 image=self.images_tile[0])
                 button.grid(row=j, column=i, sticky=NSEW)
                 button.bind("<Button-1>", self.left_click_indicator(j, i))
@@ -65,14 +67,14 @@ class GameWindow():
                             self.left_click_release_indicator(j, i))
                 button.bind("<Leave>", self.left_click_leave_indicator(j, i))
                 button.bind("<Button-3>", self.right_click_indicator(j, i))
-                widgetrow.append(button)
-            self.button_widgets.append(widgetrow)
+                widgetrow[i] = button
+            self.button_widgets[j] = widgetrow
 
     # Resizes the main windown according to the amount of squares
     def ui_geometry(self):
-        self.root.geometry(
-            f"{self.playwidth*self.boxsize}x{(self.playheight + 2)*self.boxsize}+800+300")
-        self.root.resizable(False, False)
+        self.rootwindown.geometry(
+            f"{self.playwidth*self.boxsize}x{(self.playheight + 2)*self.boxsize}+400+150")
+        self.rootwindown.resizable(False, False)
 
     # Generates general label widgets for the UI
     def playtext(self):
@@ -162,7 +164,12 @@ class GameWindow():
             self.button_widgets[pos[0]][pos[1]] = label
 
     def reset(self, geobool):
-        self.destroy_widgets()
+        self.root.destroy()
+        self.root = Frame(self.rootwindown)
+        self.root.pack()
+        self.text_widgets = []
+        self.button_widgets = {}
+        # self.destroy_widgets()
         self.game_settings()
         self.grid_obj.update(self.playheight, self.playwidth, self.mines)
         self.ui_grid()
@@ -172,17 +179,17 @@ class GameWindow():
         self.clickcount = 0
         self.flag = 0
 
-    # destroys button
+    # destroys buttons
     def destroy_widgets(self):
         for widget in self.text_widgets:
             widget.destroy()
         self.text_widgets = []
-        for row in range(len(self.button_widgets)):
-            for column in range(len(self.button_widgets[0])):
+        for row in range(self.playheight):
+            for column in range(self.playwidth):
                 button = self.button_widgets[row][column]
                 self.button_widgets[row][column] = 0
                 button.destroy()
-        self.button_widgets = []
+        self.button_widgets = {}
 
     def game_over(self, state):
         if state:
@@ -201,13 +208,15 @@ class GameWindow():
         button = Button(pop, text="New Game",
                         command=lambda: self.reset_pop(pop))
         button.grid(row=1, column=0)
-        button = Button(pop, text="Exit", command=self.root.destroy)
+        button = Button(pop, text="Exit", command=self.rootwindown.destroy)
         button.grid(row=1, column=1)
         for i in range(2):
             pop.grid_rowconfigure(i, weight=1)
             pop.grid_columnconfigure(i, weight=1)
-        pop.geometry(
-            f"250x150+{800+(self.boxsize//2)*self.playwidth-125}+{300+(self.playheight + 1)*(self.boxsize//2)-75}")
+        geometry_x = self.rootwindown.winfo_x()+(self.boxsize//2)*self.playwidth-125
+        geometry_y = self.rootwindown.winfo_y()+(self.playheight + 1) * \
+            (self.boxsize//2)-75
+        pop.geometry(f"250x150+{geometry_x}+{geometry_y}")
         pop.resizable(False, False)
 
     # Start a new game

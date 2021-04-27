@@ -8,9 +8,9 @@ class TestMSGrid(unittest.TestCase):
         self.grid = MSGrid(3, 3, 0)
 
     def test_generateGrid(self):
-        for i in self.grid.grid:
-            for j in i:
-                self.assertEqual(j.value, "0")
+        for j in range(len(self.grid.grid.keys())):
+            for i in self.grid.grid[j].values():
+                self.assertEqual(i.value, "0")
 
     def test_str(self):
         self.assertEqual(
