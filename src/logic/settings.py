@@ -12,11 +12,9 @@ class Settings:
 
     def load(self):
         self.get_filepath()
-        if Path(self.filepath).is_file():
-            return self.read()
-        else:
+        if not Path(self.filepath).is_file():
             self.create()
-            return self.read()
+        return self.read()
 
     def create(self):
         Path(self.filepath).touch()
