@@ -1,14 +1,13 @@
 from random import randint
-from square import Square
+from logic.square import Square
+
 
 class MSGrid:
     def __init__(self, height, width, mines):
         self.mines = mines
         self.height = height
         self.width = width
-        self.grid = self.generate_grid()
-        self.place_mines()
-        self.place_numbers()
+        self.main()
         self.zeropath_clickcount = 0
 
     def __str__(self):
@@ -19,6 +18,17 @@ class MSGrid:
                 row.append(i.value)
             grid.append(row)
         return str(grid)
+
+    def update(self, height, width, mines):
+        self.mines = mines
+        self.height = height
+        self.width = width
+        self.main()
+
+    def main(self):
+        self.grid = self.generate_grid()
+        self.place_mines()
+        self.place_numbers()
 
     # Generates an empty grid of the initialized size
     def generate_grid(self):
@@ -89,4 +99,3 @@ class MSGrid:
                 if self.grid[coord[0]][coord[1]].value == "0":
                     self.zeropath(coord[0], coord[1], visited)
         return visited, self.zeropath_clickcount
-        
