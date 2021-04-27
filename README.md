@@ -48,6 +48,8 @@ poetry run invoke start
 Ohjeissa sanotaan, että README siistinä, mutta pidän tämän osion toistaiseksi. Helpotta huomattavasti projektin seuraamista.
 
 Pelin resetointi on hidas. Johtunee siitä, että kaikki tkinter nappulat luodaan uudestaan. Muutenkin toimii hieman takkuisasti. Ensi viikolla statistiikka. Mahdollisesti resetin refaktorointia ja muuta optimoimista. 
+
+Yliopiston koneella jäätyilee edelleen. Toimii välillä hyvin. Jäätyessä system monitorista kun katsoo niin python3 prosessien status on sleeping. Olisko tästä mitään tietoa?
 ### viikko5
   - menubar, settings popup
   - settings tiedoston käsittelijä
