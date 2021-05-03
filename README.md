@@ -9,6 +9,8 @@ Miinaharava-peli. Tarkoitus käyttää logiikka ja vähän onnea ja etsiä kaikk
 
 [arkkitehtuuri](https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/arkkitehtuuri.md)
 
+[release](https://github.com/ElomaaTapio/ot-harjoitustyo/releases)
+
 ## Asennus
 Asenna [python3](https://realpython.com/installing-python/), [pip](https://pip.pypa.io/en/stable/installing/) ja [poetry](https://python-poetry.org/docs/).
 Käytä komentoja.
@@ -45,12 +47,12 @@ poetry run invoke start
 ## Log
 Ohjeissa sanotaan, että README siistinä, mutta pidän tämän osion toistaiseksi. Helpotta huomattavasti projektin seuraamista.
 
-Virtuaalityöpöydällä toimivuus on vaihtelevaa. Kaatuu useasti sekä heti alussa, että uutta peliä aloittaessa ja välillä klikkauksesta. Ensi viikolla pitää vaihtaa taulukot sanakirjoiksi, koska lisäys, haku ja poisto ovat tehokkaampia. Omalla koneella ei ole ollut ongelmia. Toimii kyllä muutamalla yrityksellä.
-### viikko4
--endgame-popup ja newgame
+Pelin resetointi on hidas. Johtunee siitä, että kaikki tkinter nappulat luodaan uudestaan. Muutenkin toimii hieman takkuisasti. Ensi viikolla statistiikka. Mahdollisesti resetin refaktorointia ja muuta optimoimista. 
 
--0-ruutua painettaessa automattisesti avaa koko alueen.
-
--pixilart.com hyödyntäen kuvat ruutuja varten.
-
--miinalaskuri
+Yliopiston koneella jäätyilee edelleen. Toimii välillä hyvin. Jäätyessä system monitorista kun katsoo niin python3 prosessien status on sleeping. Olisko tästä mitään tietoa?
+### viikko5
+  - menubar, settings popup
+  - settings tiedoston käsittelijä
+  - pakkausrakenteen korjausta
+  - jonkin verran koodin refaktorointia
+  
