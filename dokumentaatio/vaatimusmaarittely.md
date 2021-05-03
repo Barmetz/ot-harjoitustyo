@@ -7,7 +7,7 @@ Painikkeet uudelle pelille ja sovelluksen lopetukselle. Asetusikkuna, jossa voi 
 <img src="https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/Scan.jpg">
 ## Toiminnallisuudet
 #### Aluksi
- - [**x**] Toimiva peli. Ruutujen arvot, miinat, klikkailu. 
+ - [X] Toimiva peli. Ruutujen arvot, miinat, klikkailu. 
  - [ ] Statistiikka. Kello.
  - [x] Mahdollisuus liputtaa ruutuja osoittamaan miinaa ja miinalaskuri.
 #### Lisäksi
