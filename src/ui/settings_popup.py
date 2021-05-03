@@ -85,7 +85,7 @@ class SettingsPopUp():
 
     def change_setting(self):
         if self.setting.get() == "1":
-            correct, setting = self.get_entry()
+            correct, setting = self.get_entrys()
             if correct:
                 self.file_handler.write(setting)
         else:
@@ -101,7 +101,7 @@ class SettingsPopUp():
             for i in self.widgets[4:]:
                 i.config(state=DISABLED)
 
-    def get_entry(self):
+    def get_entrys(self):
         try:
             setting = ""
             height = int(self.widgets[4].get())
