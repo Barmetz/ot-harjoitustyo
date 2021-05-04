@@ -7,4 +7,5 @@
 |19-20.4.2021|3h|Pixel Art, Pillow, poistettu ikkunan resize pelistä|
 |20.4.2021|10h|Pillow loppuun, endgame, testit, pylint, 0-ruudun automaattinen avaus|
 |27.4.2021|13h|settings käsittelijä, settings popup, pakkausrakenne, refaktorointia|
-|Total|39.5h|----|
+|4.5.2021|10h|kello, ruutujen tuplaklikkaus, game_over eri tiedostossa, settings error viestit|
+|Total|49.5h|----|
