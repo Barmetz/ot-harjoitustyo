@@ -2,7 +2,27 @@ from tkinter import Button, StringVar, Toplevel, Radiobutton, Grid, NSEW, NW, W,
 
 
 class SettingsPopUp():
+    """Window popup where settings for the game can be altered.
+    Attributes:
+        root: Main window
+        file_handler: Setting object.
+        game: GameWindow
+        settings: array of current settings
+        playheight: GameWindow height.
+        playwidth: GameWindow width.
+        boxsize: GameWindow size of the squares.
+        options: Array of preset options.
+        widgets: Array of widgets on the popup.
+        setting: Variable for the selected setting.
+        pop: Popup window.
+    """
     def __init__(self, root, file_handler, game):
+        """Constructor. Sets up attributes.
+        Args:
+            root: Main window
+            file_handler: Setting object.
+            game: GameWindow
+        """
         self.root = root
         self.file_handler = file_handler
         self.game = game
@@ -17,11 +37,15 @@ class SettingsPopUp():
         self.popup()
 
     def geometry(self):
+        """Sets the popup window size and positions it in the center of the GameWindow.
+        """
         geometry_x = self.root.winfo_x()+(self.boxsize//2)*self.playwidth-150
         geometry_y = self.root.winfo_y()+(self.playheight + 1)*(self.boxsize//2)-100
         return f"300x200+{geometry_x}+{geometry_y}"
 
     def popup(self):
+        """Calls functions to generate settings popup.
+        """
         self.pop.focus_set()
         self.pop.grab_set()
         self.pop.title("Settings")
@@ -32,6 +56,8 @@ class SettingsPopUp():
         self.pop.resizable(False, False)
 
     def labels(self):
+        """Generates text on the popup window
+        """
         label = Label(self.pop, text="Options:")
         label.grid(row=0, column=0, sticky=NW)
         texts = ["Height (5-20):", "Width (5-25):", "Mines (1-500):"]
@@ -40,6 +66,8 @@ class SettingsPopUp():
             label.grid(row=i+1, column=1)
 
     def buttons(self):
+        """Generates buttons on the popup window
+        """
         texts = ["10x10 grid\n 10 mines",
                  "16x16 grid\n 40 mines", "16x30 grid\n 99 mines"]
         for i in range(3):
@@ -56,6 +84,8 @@ class SettingsPopUp():
         button5.grid(row=4, column=2, sticky=NSEW)
 
     def custom_game(self):
+        """Generates entrys for inputting custom game settings.
+        """
         button = Radiobutton(
             self.pop, text="custom", variable=self.setting, value="1", command=self.check_custom)
         button.grid(row=0, column=1, sticky=NW)
@@ -66,6 +96,8 @@ class SettingsPopUp():
             self.widgets.append(entry)
 
     def set_states(self):
+        """Sets radiobutton states.
+        """
         current = ";".join(self.file_handler.load())
         if current not in self.options:
             self.widgets[3].select()
@@ -78,14 +110,18 @@ class SettingsPopUp():
                     self.widgets[i].deselect()
 
     def grid_config(self):
+        """Configures the placement grid.
+        """
         for j in range(5):
             Grid.rowconfigure(self.pop, j, weight=1)
         for i in range(3):
             Grid.columnconfigure(self.pop, i, weight=1)
 
     def change_setting(self):
+        """Writes new settings to setting file.
+        """
         if self.setting.get() == "1":
-            correct, setting = self.get_entrys()
+            correct, setting = self.get_entry()
             if correct:
                 self.file_handler.write(setting)
         else:
@@ -94,6 +130,9 @@ class SettingsPopUp():
         self.pop.after(500, lambda: self.pop.destroy())
 
     def check_custom(self):
+        """Checks if the custom setting option is selected and
+        disables or activates the entry boxes accordingly.
+        """
         if self.setting.get() == "1":
             for i in self.widgets[4:]:
                 i.config(state=NORMAL)
@@ -101,7 +140,9 @@ class SettingsPopUp():
             for i in self.widgets[4:]:
                 i.config(state=DISABLED)
 
-    def get_entrys(self):
+    def get_entry(self):
+        """Formulates a string out of the contents of the entry boxes.
+        """
         try:
             setting = ""
             height = int(self.widgets[4].get())
