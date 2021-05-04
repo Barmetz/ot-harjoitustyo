@@ -1,3 +1,17 @@
-<img src="https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/pakkausrakenne.jpg">
+# Arkkitehtuuri
 
-<img src="https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/www.websequencediagrams.com.png">
+## Pakkausrakenne
+
+Pakkaus rakenne koostuu neljästä kansiosta. Kansio *ui* sisältää käyttöliittymää käsittelevän koodin. *images* kansiosta löytyy *ui* koodin tarvitsemat kuvatiedostot. *ui* tarvitsee toimiakseen *logic* kansiossa sijaitsevan sovelluslogiikan. Sovelluslogiikkan settings käyttää tiedostoa settings.csv, joka löytyy *data* kansiosta.
+
+![pakkausrakenne](./kuvat/pakkausrakenne.jpg)
+
+## Käyttöliittymä
+
+Käyttöliittymässä on kolme mahdollista ikkunaa
+- Pelinäkymä
+- Settings -näkymä
+- GameOver -näkymä
+
+
+
