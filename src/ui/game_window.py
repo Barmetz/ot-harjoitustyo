@@ -14,6 +14,8 @@ class GameWindow():
         text_widgets: Texts surrounding the game grid.
         flag_location: Locations of all marked/flagged squares.
         clickcount: Amount of clicked squares.
+        clock_count = Counts seconds.
+        clock = Tells if clock is on or off.
         leave: Boolean to see if mouse is moved out of a button after clicking.
         images_numbers: Image objects for different number values.
         images_tile: Image objects for mines and tile designs.
@@ -41,6 +43,8 @@ class GameWindow():
         self.text_widgets = []
         self.flag_location = []
         self.clickcount = 0
+        self.clock_count = 0
+        self.clock = False
         self.leave = False
         self.images_numbers = []
         self.images_tile = []
@@ -119,7 +123,7 @@ class GameWindow():
     def playtext(self):
         """Generates texts surrounding the game grid.
         """
-        botleft = Label(self.root, text="Clock: 0")
+        botleft = Label(self.root, text=f"Clock: {self.clock_count}")
         botright = Label(self.root, text=f"Mines: {self.mines}")
         botleft.grid(row=self.playheight+1, column=0,
                      columnspan=self.playwidth//2)
@@ -248,6 +252,9 @@ class GameWindow():
             i: Column of the designated square.
         """
         if not self.marked(j, i) and not self.leave:
+            if not self.clock:
+                self.clock = True
+                self.update_clock()
             self.show_square(j, i)
 
     def show_square(self, j, i):
@@ -335,6 +342,7 @@ class GameWindow():
         self.game_settings()
         self.grid_obj.update(self.playheight, self.playwidth, self.mines)
         self.ui_grid()
+        self.clock_count = 0
         self.playtext()
         if geobool:
             self.ui_geometry()
@@ -344,7 +352,7 @@ class GameWindow():
     def check_game_over(self, minebool):
         """Checks game over conditions.
         Args:
-            minebool: Determines if a mine has been clicked.
+            minebool: Tells if a mine has been clicked.
         """
         if minebool:
             self.check_wrong_flag()
@@ -372,6 +380,7 @@ class GameWindow():
         Args:
             state: Whether game is won or lost.
         """
+        self.clock = False
         if state:
             self.game_over_window_update()
             self.game_over_window.game_over_popup("Game Over. You lost!")
@@ -379,3 +388,12 @@ class GameWindow():
             self.game_over_window_update()
             self.text_widgets[1].config(text=f"Mines: 0")
             self.game_over_window.game_over_popup("Game Over. You win!")
+
+    def update_clock(self):
+        """Updates clock until clock_count reaches 999 seconds.
+        """
+        if self.clock:
+            if self.clock_count < 1000:
+                self.clock_count += 1
+                self.text_widgets[0].config(text=f"Clock: {self.clock_count}")
+                self.root.after(1000, self.update_clock)
