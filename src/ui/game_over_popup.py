@@ -1,4 +1,6 @@
 from tkinter import Toplevel, Label, Button, NSEW
+
+
 class GameOverWindow():
     """Class for the game over popup window.
     Attributes:
@@ -7,6 +9,7 @@ class GameOverWindow():
         playwidth: GameWindow width.
         boxsize: GameWindow size of the squares.
     """
+
     def __init__(self, root):
         """Sets up default values for the attributes.
         Args:

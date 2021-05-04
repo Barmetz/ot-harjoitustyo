@@ -1,4 +1,4 @@
-from tkinter import Button, StringVar, Toplevel, Radiobutton, Grid, NSEW, NW, W, Label, Entry, DISABLED, NORMAL
+from tkinter import Button, StringVar, Toplevel, Radiobutton, Grid, NSEW, NW, W, Label, Entry, DISABLED, NORMAL, messagebox
 
 
 class SettingsPopUp():
@@ -16,6 +16,7 @@ class SettingsPopUp():
         setting: Variable for the selected setting.
         pop: Popup window.
     """
+
     def __init__(self, root, file_handler, game):
         """Constructor. Sets up attributes.
         Args:
@@ -35,6 +36,7 @@ class SettingsPopUp():
         self.setting = StringVar()
         self.pop = Toplevel(self.root)
         self.popup()
+        self.error = False
 
     def geometry(self):
         """Sets the popup window size and positions it in the center of the GameWindow.
@@ -120,14 +122,19 @@ class SettingsPopUp():
     def change_setting(self):
         """Writes new settings to setting file.
         """
+        self.error = False
         if self.setting.get() == "1":
-            correct, setting = self.get_entry()
-            if correct:
-                self.file_handler.write(setting)
+            try:
+                correct, setting = self.get_entry()
+                if correct:
+                    self.file_handler.write(setting)
+            except TypeError:
+                self.error = True
         else:
             self.file_handler.write(self.setting.get())
-        self.game.reset(True)
-        self.pop.after(500, lambda: self.pop.destroy())
+        if not self.error:
+            self.game.reset(True)
+            self.pop.after(500, lambda: self.pop.destroy())
 
     def check_custom(self):
         """Checks if the custom setting option is selected and
@@ -157,7 +164,10 @@ class SettingsPopUp():
                         setting += self.widgets[6].get() + ";"
                         correct = True
             setting += "50"
-            return correct, setting
+            if correct:
+                return correct, setting
+            else:
+                messagebox.showerror("Error", "Values out of ranges or too many mines")
         except ValueError:
-            self.pop.destroy()
-            return False, ""
+            messagebox.showerror("Error", "Invalid input")
+            self.error = True

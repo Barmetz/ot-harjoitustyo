@@ -28,6 +28,7 @@ class GameWindow():
         boxsize: Size if drawn squares.
 
     """
+
     def __init__(self, root, file_handler):
         """Constructor. Sets up all attributes and the ui.
         Args:
@@ -105,10 +106,12 @@ class GameWindow():
         Returns:
             button: The Button object.
         """
-        button = Button(self.root, width=self.boxsize, height=self.boxsize, image=self.images_tile[0])
+        button = Button(self.root, width=self.boxsize,
+                        height=self.boxsize, image=self.images_tile[0])
         button.grid(row=j, column=i, sticky=NSEW)
         button.bind("<Button-1>", self.left_click_indicator(j, i))
-        button.bind("<ButtonRelease-1>", self.left_click_release_indicator(j, i))
+        button.bind("<ButtonRelease-1>",
+                    self.left_click_release_indicator(j, i))
         button.bind("<Leave>", self.left_click_leave_indicator(j, i))
         button.bind("<Button-3>", self.right_click_indicator(j, i))
         return button

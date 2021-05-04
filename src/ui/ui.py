@@ -14,6 +14,7 @@ class UI():
         game_over_window: GameOverWindow
 
     """
+
     def __init__(self):
         """Constructor. Sets up attributes.
         """

@@ -8,6 +8,7 @@ class Settings:
         filename: Name of the file
         filepath: Path of the file
     """
+
     def __init__(self):
         """Constructor. Sets up default values.
         """
