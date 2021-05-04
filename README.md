@@ -26,11 +26,11 @@ Etsi pelin hakemisto ja aja komento.
 ```
 poetry install
 ```
-Peli käynnistyy.
+### Peli käynnistyy.
 ```
 poetry run invoke start
 ```
-Testikattavuusraportti.
+### Testikattavuusraportti.
 ```
 poetry run invoke coverage
 poetry run invoke coverage-report
