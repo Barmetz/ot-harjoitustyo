@@ -46,3 +46,6 @@ Pelin hakemistossa.
 poetry install
 poetry run invoke start
 ```
+
+## Log
+Kello, ruutujen tuplaklikkaus, game_over eri tiedostossa. Vikoille viikolle jää katsottavaksi statistiikka ja sen tallennusta.
