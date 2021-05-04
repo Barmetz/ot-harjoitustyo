@@ -8,11 +8,15 @@ Painikkeet uudelle pelille ja sovelluksen lopetukselle. Asetusikkuna, jossa voi 
 ## Toiminnallisuudet
 #### Aluksi
  - [X] Toimiva peli. Ruutujen arvot, miinat, klikkailu. 
- - [ ] Statistiikka. Kello.
+ - [X] Kello.
  - [x] Mahdollisuus liputtaa ruutuja osoittamaan miinaa ja miinalaskuri.
-#### Lisäksi
  - [x] Eri kokoiset ruudukot ja settings ikkuna, josta ruudukkoja voi vaihtaa.
- - [ ] Mahdollisuus pelata pelkästään näppäimistöllä.
- - [ ] Ruutujen tuplaklikkaus ominaisuus. Jos ruudun ympäriltä on jo liputettu sen arvon verran miinoja, peli klikkaa automaattisesti kaikki ruudun vieressä olevat ruudut auki.
- - [x] Animaatiot ja teemat. 
+ - [X] Ruutujen tuplaklikkaus ominaisuus. Jos ruudun ympäriltä on jo liputettu sen arvon verran miinoja, peli klikkaa automaattisesti kaikki ruudun vieressä olevat ruudut auki.
+ - [x] Perusteema. 
+ - [X] Game Over ikkuna.
+ - [ ] Statistiikka.
+ #### Kehitysideoita
+ - [ ] Animaatiot ja teemat.
+ - [ ] Musiikki.
+ - [ ] Peliportaali, jossa miinaharava on yksi peleistä, mutta on myös muita vaihtoehtoja.
 
