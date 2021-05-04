@@ -46,6 +46,10 @@ Asetusnäkymästä voi valita ruudun koon ja miinojen määrän valmiista vaihto
 
 <img src="https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/Settings.PNG">
 
-Painamalla miinasta häviät pelin. Jos olet liputtanut ruutuja väärin, ne ovat pelin lopussa näkyvissä punaisella X merkinnällä. Voitat pelin avaamalla kaikki ruudut, joissa ei ole miinaa.  
+Painamalla miinasta häviät pelin. Jos olet liputtanut ruutuja väärin, ne ovat pelin lopussa näkyvissä punaisella X merkinnällä. 
 
 <img src="https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/Häviö.PNG">
+
+Voitat pelin avaamalla kaikki ruudut, joissa ei ole miinaa.  
+
+<img src="https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/Voitto.png">
