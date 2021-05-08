@@ -1,4 +1,4 @@
-from tkinter import Label, Button, Grid, NSEW, Frame
+from tkinter import Label, Button, Grid, NSEW, Frame, NORMAL
 from PIL import Image, ImageTk
 from logic.gridlogic import MSGrid
 
@@ -36,29 +36,31 @@ class GameWindow():
             root: The main window.
             file_handler: Settings class for file operations.
         """
+        self.game_over_window = None
         self.rootwindown = root
         self.window()
         self.file_handler = file_handler
         self.game_settings()
-        self.square_widgets = {}
-        self.text_widgets = []
+        self.init_attributes()
+        self.images()
+        self.grid_obj = MSGrid(self.playheight, self.playwidth, self.mines)
+        self.ui_grid()
+    
+    def init_attributes(self):
         self.flag_location = []
         self.clickcount = 0
         self.timer_count = 0
         self.timer = False
         self.leave = False
-        self.images_numbers = []
-        self.images_tile = []
-        self.create_images()
-        self.grid_obj = MSGrid(self.playheight, self.playwidth, self.mines)
-        self.ui_grid()
-        self.playtext()
-        self.ui_geometry()
-        self.game_over_window = None
 
     def window(self):
         self.root = Frame(self.rootwindown)
         self.root.pack()
+
+    def images(self):
+        self.images_numbers = []
+        self.images_tile = []
+        self.create_images()
 
     def game_settings(self):
         """Loads game settings from file and assings them to attributes.
@@ -90,17 +92,28 @@ class GameWindow():
             "src/images/wrong_flag.png").resize((image_size))))
 
     def ui_grid(self):
+        self.button_widgets = {}
+        self.label_widgets = {}
+        self.text_widgets = []
+        self.create_buttons_and_labels()
+        self.playtext()
+        self.grid_config()
+        self.ui_geometry()
+
+    def create_buttons_and_labels(self):
         """Generates a two dimensional set of dictionaries.
         Items are tkinter buttons. Also configures tkinter grid for the frame.
         """
         for j in range(self.playheight):
-            Grid.rowconfigure(self.root, j, weight=1)
-            widgetrow = {}
+            widgetrow_buttons = {}
+            widgetrow_labels = {}
             for i in range(self.playwidth):
-                Grid.columnconfigure(self.root, i, weight=1)
                 button = self.create_button(j, i)
-                widgetrow[i] = button
-            self.square_widgets[j] = widgetrow
+                label = self.create_square_label(j, i)
+                widgetrow_buttons[i] = button
+                widgetrow_labels[i] = label
+            self.button_widgets[j] = widgetrow_buttons
+            self.label_widgets[j] = widgetrow_labels
 
     def create_button(self, j, i):
         """Creates and keybinds a tkinter button object for a designated square.
@@ -119,6 +132,31 @@ class GameWindow():
         button.bind("<Leave>", self.left_click_leave_indicator(j, i))
         button.bind("<Button-3>", self.right_click_indicator(j, i))
         return button
+    
+    def create_square_label(self, j, i):
+        """Creates a label for designated square and keybinds it.
+        Args:
+            j: Row of the designated square.
+            i: Column of the designated square.
+        """
+        label = Label(self.root, borderwidth=2, bg="white",
+                      relief="sunken", width=52, height=52)
+        label.bind("<Double-Button-1>", self.adjacent_click_indicator(j, i))
+        return label
+
+    def label_config(self):
+        for j in range(self.playheight):
+            for i in range(self.playwidth):
+                if self.value(j, i) == "M":
+                    self.label_widgets[j][i].config(image=self.images_tile[1])
+                else:
+                    self.label_widgets[j][i].config(image=self.images_numbers[int(self.value(j, i))])
+
+    def grid_config(self):
+        for j in range(self.playheight):
+            Grid.rowconfigure(self.root, j, weight=1)
+        for i in range(self.playwidth):
+            Grid.columnconfigure(self.root, i, weight=1)
 
     def ui_geometry(self):
         """Resizes the main windown according to the amount of squares.
@@ -181,27 +219,6 @@ class GameWindow():
         """
         return lambda Button: self.adjacent_click(j, i)
 
-    def destroy_button(self, j, i):
-        """Destroys the button object of a designated square.
-        Args:
-            j: Row of the designated square.
-            i: Column of the designated square.
-        """
-        button = self.square_widgets[j][i]
-        self.square_widgets[j][i] = 0
-        button.destroy()
-
-    def create_square_label(self, j, i):
-        """Creates a label for designated square and keybinds it.
-        Args:
-            j: Row of the designated square.
-            i: Column of the designated square.
-        """
-        label = Label(self.root, borderwidth=2, bg="white",
-                      relief="sunken", width=52, height=52)
-        label.bind("<Double-Button-1>", self.adjacent_click_indicator(j, i))
-        return label
-
     def value(self, j, i):
         """Helper function that gets the value of a designated square.
         Args:
@@ -239,7 +256,7 @@ class GameWindow():
             i: Column of the designated square.
         """
         if not self.marked(j, i):
-            self.square_widgets[j][i].config(image=self.images_numbers[0])
+            self.button_widgets[j][i].config(image=self.images_numbers[0])
             self.leave = False
 
     def left_click_leave(self, j, i):
@@ -249,7 +266,7 @@ class GameWindow():
             i: Column of the designated square.
         """
         if not self.marked(j, i) and self.hidden(j, i):
-            self.square_widgets[j][i].config(image=self.images_tile[0])
+            self.button_widgets[j][i].config(image=self.images_tile[0])
             self.leave = True
 
     def left_click_release(self, j, i):
@@ -263,11 +280,12 @@ class GameWindow():
                 self.grid_obj.place(j, i)
                 self.timer = True
                 self.update_timer()
-                self.root.after(100, self.show_square(j, i))
+                self.label_config()
+                self.root.after(100, self.check_square(j, i))
             else:
-                self.show_square(j, i)
+                self.check_square(j, i)
 
-    def show_square(self, j, i):
+    def check_square(self, j, i):
         """Draws designated square as a label according to its value or
         calls functions according to the value of the square.
         Calls functions to check if game is over.
@@ -276,21 +294,19 @@ class GameWindow():
             i: Column of the designated square.
         """
         self.grid_obj.grid[j][i].hidden = False
-        minebool = False
         if self.value(j, i) == "0":
             self.update_zeropath(j, i)
         else:
-            self.destroy_button(j, i)
-            label = self.create_square_label(j, i)
-            if self.value(j, i) == "M":
-                label.config(image=self.images_tile[1])
-                minebool = True
-            else:
-                label.config(image=self.images_numbers[int(self.value(j, i))])
-            label.grid(row=j, column=i)
-            self.square_widgets[j][i] = label
+            self.show_square(j, i)
+        if self.value(j, i) == "M":
+            minebool = True
+        else:
+            minebool = False
         self.clickcount += 1
         self.check_game_over(minebool)
+
+    def show_square(self, j, i):
+        self.label_widgets[j][i].grid(row=j, column=i)
 
     def right_click(self, j, i):
         """Flags and un-flags a designated square.
@@ -300,11 +316,11 @@ class GameWindow():
             i: Column of the designated square.
         """
         if self.marked(j, i):
-            self.square_widgets[j][i].config(image=self.images_tile[0])
+            self.button_widgets[j][i].config(image=self.images_tile[0])
             self.grid_obj.grid[j][i].marked = False
             self.flag_location.remove([j, i])
         else:
-            self.square_widgets[j][i].config(image=self.images_tile[2])
+            self.button_widgets[j][i].config(image=self.images_tile[2])
             self.grid_obj.grid[j][i].marked = True
             self.flag_location.append([j, i])
         self.text_widgets[1].config(
@@ -318,7 +334,7 @@ class GameWindow():
         """
         coordinates = self.grid_obj.adjacent(j, i)
         for pos in coordinates:
-            self.show_square(pos[0], pos[1])
+            self.check_square(pos[0], pos[1])
 
     def update_zeropath(self, j, i):
         """Calls functions to calculate coordinates of a path of zeros and surrounding squares
@@ -332,36 +348,43 @@ class GameWindow():
         coordinates, clicks = self.grid_obj.zeropath(j, i, [[j, i]])
         self.clickcount += clicks
         for pos in coordinates:
-            label = self.create_square_label(pos[0], pos[1])
-            label.config(image=self.images_numbers[int(
-                self.grid_obj.grid[pos[0]][pos[1]].value)])
-            label.grid(row=pos[0], column=pos[1])
-            self.square_widgets[pos[0]][pos[1]] = label
+            j = pos[0]
+            i = pos[1]
+            self.show_square(j, i)
 
     def reset(self, geobool):
         """Calls functions to generate a new game and resets essential attributes.
         Args:
             geobool: Tells if the window size needs to be adjusted.
         """
-        t1 = perf_counter()
-        self.root.destroy()
-        self.window()
-        self.text_widgets = []
-        self.square_widgets = {}
+        self.init_attributes()
+        if geobool:
+            self.destroy_widgets()
+        else:
+            self.button_reset()
         self.game_settings()
         self.grid_obj.update(self.playheight, self.playwidth, self.mines)
-        self.ui_grid()
-        self.timer_count = 0
-        self.timer = False
-        self.playtext()
         if geobool:
-            self.ui_geometry()
+            self.root.destroy()
+            self.window()
+            self.ui_grid()
             self.game_over_window.update_settings()
-        self.clickcount = 0
-        self.flag_location = []
-        self.rootwindown.update()
-        t2 = perf_counter()
-        print(t2-t1)
+
+    def button_reset(self):
+        for j in range(self.playheight):
+            for i in range(self.playwidth):
+                self.label_widgets[j][i].grid_forget()
+                button = self.button_widgets[j][i]
+                button.config(image=self.images_tile[0], state=NORMAL)
+                button.grid(row=j, column=i)
+
+    def destroy_widgets(self):
+        for j in range(self.playheight):
+            for i in range(self.playwidth):
+                self.label_widgets[j][i].destroy()
+                self.button_widgets[j][i].destroy()
+        for item in self.text_widgets:
+            item.destroy()
 
     def check_game_over(self, minebool):
         """Checks game over conditions.
@@ -379,7 +402,7 @@ class GameWindow():
         """
         for pos in self.flag_location:
             if not self.value(pos[0], pos[1]) == "M":
-                self.square_widgets[pos[0]][pos[1]].config(
+                self.button_widgets[pos[0]][pos[1]].config(
                     image=self.images_tile[3])
 
     def game_over(self, state):

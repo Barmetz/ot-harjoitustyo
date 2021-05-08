@@ -137,9 +137,8 @@ class SettingsPopUp():
         else:
             self.file_handler.write(self.setting.get())
         if not self.error:
-
+            self.pop.destroy()
             self.game.reset(True)
-            self.pop.after(10, lambda: self.pop.destroy())
 
     def check_custom(self):
         """Checks if the custom setting option is selected and
