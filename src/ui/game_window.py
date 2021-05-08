@@ -2,6 +2,7 @@ from tkinter import Label, Button, Grid, NSEW, Frame
 from PIL import Image, ImageTk
 from logic.gridlogic import MSGrid
 
+from time import perf_counter
 
 class GameWindow():
     """Class for the main game window. Game consists of two grids.
@@ -36,8 +37,7 @@ class GameWindow():
             file_handler: Settings class for file operations.
         """
         self.rootwindown = root
-        self.root = Frame(self.rootwindown)
-        self.root.pack()
+        self.window()
         self.file_handler = file_handler
         self.game_settings()
         self.square_widgets = {}
@@ -55,6 +55,10 @@ class GameWindow():
         self.playtext()
         self.ui_geometry()
         self.game_over_window = None
+
+    def window(self):
+        self.root = Frame(self.rootwindown)
+        self.root.pack()
 
     def game_settings(self):
         """Loads game settings from file and assings them to attributes.
@@ -259,7 +263,9 @@ class GameWindow():
                 self.grid_obj.place(j, i)
                 self.timer = True
                 self.update_timer()
-            self.root.after(100, self.show_square(j, i))
+                self.root.after(100, self.show_square(j, i))
+            else:
+                self.show_square(j, i)
 
     def show_square(self, j, i):
         """Draws designated square as a label according to its value or
@@ -337,9 +343,9 @@ class GameWindow():
         Args:
             geobool: Tells if the window size needs to be adjusted.
         """
+        t1 = perf_counter()
         self.root.destroy()
-        self.root = Frame(self.rootwindown)
-        self.root.pack()
+        self.window()
         self.text_widgets = []
         self.square_widgets = {}
         self.game_settings()
@@ -353,6 +359,9 @@ class GameWindow():
             self.game_over_window.update_settings()
         self.clickcount = 0
         self.flag_location = []
+        self.rootwindown.update()
+        t2 = perf_counter()
+        print(t2-t1)
 
     def check_game_over(self, minebool):
         """Checks game over conditions.

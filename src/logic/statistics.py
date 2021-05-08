@@ -26,10 +26,10 @@ class Statistics:
         """
         Path(self.filepath).touch()
         data = []
-        data.append("0;0;0;0;0;True")
-        data.append("1;0;0;0;0;True")
-        data.append("2;0;0;0;0;True")
-        data.append("3;0;0;0;0;True")
+        data.append("0;0;0;-1;0;True")
+        data.append("1;0;0;-1;0;True")
+        data.append("2;0;0;-1;0;True")
+        data.append("3;0;0;-1;0;True")
         self.write(data)
 
     def write(self, data):
@@ -56,10 +56,12 @@ class Statistics:
         data = self.load()
         self.stats = data[index].split(";")
         self.win_lose(state)
-        self.best_time(timer)
+        if not state:
+            self.best_time(timer)
         self.streak(state)
         data[index] = ";".join(self.stats)
         self.write(data)
+        return self.stats
 
     def win_lose(self, state):
         if state:
@@ -68,7 +70,7 @@ class Statistics:
             self.stats[1] = str(int(self.stats[1])+1)
 
     def best_time(self, timer):
-        if timer < int(self.stats[3]):
+        if timer < int(self.stats[3]) or self.stats[3] == "-1":
             self.stats[3] = str(timer)
 
     def streak(self, state):

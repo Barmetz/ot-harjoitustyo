@@ -1,6 +1,5 @@
 from tkinter import Button, StringVar, Toplevel, Radiobutton, Grid, NSEW, NW, W, Label, Entry, DISABLED, NORMAL, messagebox
 
-
 class SettingsPopUp():
     """Window popup where settings for the game can be altered.
     Attributes:
@@ -138,8 +137,9 @@ class SettingsPopUp():
         else:
             self.file_handler.write(self.setting.get())
         if not self.error:
+
             self.game.reset(True)
-            self.pop.after(500, lambda: self.pop.destroy())
+            self.pop.after(10, lambda: self.pop.destroy())
 
     def check_custom(self):
         """Checks if the custom setting option is selected and
