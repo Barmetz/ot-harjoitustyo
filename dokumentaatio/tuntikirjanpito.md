@@ -8,4 +8,5 @@
 |20.4.2021|10h|Pillow loppuun, endgame, testit, pylint, 0-ruudun automaattinen avaus|
 |27.4.2021|13h|settings käsittelijä, settings popup, pakkausrakenne, refaktorointia|
 |4.5.2021|10h|kello, ruutujen tuplaklikkaus, game_over eri tiedostossa, settings error viestit, dokumentointi|
-|Total|49.5h|----|
+|9.5.2021|8h|statistiikka, refaktorointi, widgettejä ei poisteta|
+|Total|57.5h|----|
