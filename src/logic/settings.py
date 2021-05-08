@@ -3,7 +3,7 @@ from config import FILE_PATH
 
 
 class Settings:
-    """Class for writing and reading a file that contains settings for the game.
+    """Class for writing and  areading file that contains settings for the game.
     Attributes:
         filename: Name of the file
         filepath: Path of the file
@@ -18,7 +18,7 @@ class Settings:
     def get_filepath(self):
         """Initializes filepath.
         """
-        self.filepath = FILE_PATH
+        self.filepath = FILE_PATH + self.filename
 
     def load(self):
         """Checks if file exists.

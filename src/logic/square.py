@@ -2,7 +2,7 @@ class Square:
     """Represents a single square in-game.
     Attributes:
         value: either M for mine or number value equal to mines in surrounding squares
-        hidden: is the square visible for the player or clickable
+        hidden: is the square visible for the player and therefore clickable
         marked: is the square marked with a flag
     """
 

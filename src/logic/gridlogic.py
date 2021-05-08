@@ -19,11 +19,12 @@ class MSGrid:
             height: Desired grid height.
             width: Desired grid width.
             mines: Desired amount of mines.
+            grid: Two dimensional set of dictionaries.
         """
         self.mines = mines
         self.height = height
         self.width = width
-        self.main()
+        self.generate_grid()
         self.zeropath_clickcount = 0
 
     def __str__(self):
@@ -50,14 +51,7 @@ class MSGrid:
         self.mines = mines
         self.height = height
         self.width = width
-        self.main()
-
-    def main(self):
-        """Calls functions to create a new grid.
-        """
-        self.grid = self.generate_grid()
-        self.place_mines()
-        self.place_numbers()
+        self.generate_grid()
 
     def generate_grid(self):
         """Cretes a two dimensional set of dictionaries of the initialized size.
@@ -70,21 +64,38 @@ class MSGrid:
             for i in range(self.width):
                 row[i] = Square()
             grid[j] = row
-        return grid
+        self.grid = grid
 
-    def place_mines(self):
+    def place(self, j, i):
+        """Calls place functions.
+        Args:
+            j: Row of the designated square.
+            i: Column of the designated square.
+        """
+        self.place_mines(j, i)
+        self.place_numbers()
+
+    def place_mines(self, j, i):
         """Randomizes coordinates for mines and places the mines in to the grid.
+        Designated square is the first square clicked at game start.
+        Designated square and its neighbours cant be mines to ensure a playable/enjoyable game start.
+        Args:
+            j: Row of the designated square.
+            i: Column of the designated square.
         """
         minecount = 0
-        minelocation = []
+        disallowed = self.neighbours(j, i)
+        disallowed.append([j, i])
+        mines = []
         while minecount < self.mines:
             pos_j = randint(0, self.height-1)
             pos_i = randint(0, self.width-1)
-            if (pos_j, pos_i) not in minelocation:
-                minelocation.append((pos_j, pos_i))
+            coord = [pos_j, pos_i]
+            if coord not in mines and coord not in disallowed:
+                mines.append(coord)
                 minecount += 1
-        for i in minelocation:
-            self.grid[i[0]][i[1]].value = "M"
+        for pos in mines:
+            self.grid[pos[0]][pos[1]].value = "M"
 
     def is_mine(self, j, i):
         """Checks if designated square is a mine

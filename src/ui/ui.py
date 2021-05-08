@@ -1,5 +1,6 @@
 from tkinter import Tk, Menu
 from logic.settings import Settings
+from logic.statistics import Statistics
 from ui.settings_popup import SettingsPopUp
 from ui.game_window import GameWindow
 from ui.game_over_popup import GameOverWindow
@@ -19,10 +20,11 @@ class UI():
         """Constructor. Sets up attributes.
         """
         self.file_handler = Settings()
+        self.stats = Statistics()
         self.root = Tk()
         self.root.title("Minesweeper")
         self.game = GameWindow(self.root, self.file_handler)
-        self.game_over_window = GameOverWindow(self.root)
+        self.game_over_window = GameOverWindow(self.root, self.file_handler, self.stats)
         self.game.game_over_window = self.game_over_window
         self.game_over_window.game = self.game
         self.menubar()

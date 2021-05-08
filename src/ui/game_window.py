@@ -14,8 +14,8 @@ class GameWindow():
         text_widgets: Texts surrounding the game grid.
         flag_location: Locations of all marked/flagged squares.
         clickcount: Amount of clicked squares.
-        clock_count = Counts seconds.
-        clock = Tells if clock is on or off.
+        timer_count = Counts seconds.
+        timer = Tells if timer is on or off.
         leave: Boolean to see if mouse is moved out of a button after clicking.
         images_numbers: Image objects for different number values.
         images_tile: Image objects for mines and tile designs.
@@ -44,8 +44,8 @@ class GameWindow():
         self.text_widgets = []
         self.flag_location = []
         self.clickcount = 0
-        self.clock_count = 0
-        self.clock = False
+        self.timer_count = 0
+        self.timer = False
         self.leave = False
         self.images_numbers = []
         self.images_tile = []
@@ -126,7 +126,7 @@ class GameWindow():
     def playtext(self):
         """Generates texts surrounding the game grid.
         """
-        botleft = Label(self.root, text=f"Clock: {self.clock_count}")
+        botleft = Label(self.root, text=f"Timer: {self.timer_count}")
         botright = Label(self.root, text=f"Mines: {self.mines}")
         botleft.grid(row=self.playheight+1, column=0,
                      columnspan=self.playwidth//2)
@@ -255,10 +255,11 @@ class GameWindow():
             i: Column of the designated square.
         """
         if not self.marked(j, i) and not self.leave:
-            if not self.clock:
-                self.clock = True
-                self.update_clock()
-            self.show_square(j, i)
+            if not self.timer:
+                self.grid_obj.place(j, i)
+                self.timer = True
+                self.update_timer()
+            self.root.after(100, self.show_square(j, i))
 
     def show_square(self, j, i):
         """Draws designated square as a label according to its value or
@@ -313,7 +314,6 @@ class GameWindow():
         for pos in coordinates:
             self.show_square(pos[0], pos[1])
 
-    # When clicking a 0 square automatically open the all connected 0 squares and their neighbours
     def update_zeropath(self, j, i):
         """Calls functions to calculate coordinates of a path of zeros and surrounding squares
         starting from a designated square.
@@ -345,10 +345,12 @@ class GameWindow():
         self.game_settings()
         self.grid_obj.update(self.playheight, self.playwidth, self.mines)
         self.ui_grid()
-        self.clock_count = 0
+        self.timer_count = 0
+        self.timer = False
         self.playtext()
         if geobool:
             self.ui_geometry()
+            self.game_over_window.update_settings()
         self.clickcount = 0
         self.flag_location = []
 
@@ -371,32 +373,20 @@ class GameWindow():
                 self.square_widgets[pos[0]][pos[1]].config(
                     image=self.images_tile[3])
 
-    def game_over_window_update(self):
-        """Updates current gamesize to the game over window.
-        """
-        self.game_over_window.playheight = self.playheight
-        self.game_over_window.playwidth = self.playwidth
-        self.game_over_window.boxsize = self.boxsize
-
     def game_over(self, state):
         """Sets game over text and calls popup function.
         Args:
             state: Whether game is won or lost.
         """
-        self.clock = False
-        if state:
-            self.game_over_window_update()
-            self.game_over_window.game_over_popup("Game Over. You lost!")
-        else:
-            self.game_over_window_update()
-            self.text_widgets[1].config(text=f"Mines: 0")
-            self.game_over_window.game_over_popup("Game Over. You win!")
+        self.timer = False
+        self.text_widgets[1].config(text=f"Mines: 0")
+        self.game_over_window.game_over_popup(state, self.timer_count)
 
-    def update_clock(self):
-        """Updates clock until clock_count reaches 999 seconds.
+    def update_timer(self):
+        """Updates timer until timer_count reaches 999 seconds.
         """
-        if self.clock:
-            if self.clock_count < 1000:
-                self.clock_count += 1
-                self.text_widgets[0].config(text=f"Clock: {self.clock_count}")
-                self.root.after(1000, self.update_clock)
+        if self.timer:
+            if self.timer_count < 1000:
+                self.timer_count += 1
+                self.text_widgets[0].config(text=f"Timer: {self.timer_count}")
+                self.root.after(1000, self.update_timer)

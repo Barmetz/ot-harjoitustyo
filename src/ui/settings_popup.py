@@ -27,16 +27,21 @@ class SettingsPopUp():
         self.root = root
         self.file_handler = file_handler
         self.game = game
-        self.settings = self.file_handler.load()
-        self.playheight = int(self.settings[0])
-        self.playwidth = int(self.settings[1])
-        self.boxsize = int(self.settings[3])
+        self.current_settings()
         self.options = ["10;10;10;50", "16;16;40;50", "16;30;99;50"]
         self.widgets = []
         self.setting = StringVar()
         self.pop = Toplevel(self.root)
         self.popup()
         self.error = False
+ 
+    def current_settings(self):
+        """Gets current game settings.
+        """
+        self.settings = self.file_handler.load()
+        self.playheight = int(self.settings[0])
+        self.playwidth = int(self.settings[1])
+        self.boxsize = int(self.settings[3])
 
     def geometry(self):
         """Sets the popup window size and positions it in the center of the GameWindow.
