@@ -171,7 +171,7 @@ class SettingsPopUp():
             if correct:
                 return correct, setting
             else:
-                messagebox.showerror("Error", "Values out of ranges or too many mines")
+                messagebox.showerror("Error", "Values out of range or too many mines")
         except ValueError:
             messagebox.showerror("Error", "Invalid input")
             self.error = True
