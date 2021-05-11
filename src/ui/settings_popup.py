@@ -164,7 +164,7 @@ class SettingsPopUp():
                 setting += self.widgets[4].get() + ";"
                 if 5 <= width <= 25:
                     setting += self.widgets[5].get() + ";"
-                    if 1 <= mines <= 500 and height*width > mines:
+                    if 1 <= mines <= 500 and height*width-8 > mines:
                         setting += self.widgets[6].get() + ";"
                         correct = True
             setting += "50"
