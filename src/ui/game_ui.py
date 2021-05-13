@@ -4,13 +4,13 @@ from logic.gridlogic import MSGrid
 
 from time import perf_counter
 
-class GameWindow():
+class GameUI():
     """Class for the main game window. Game consists of two grids.
     The MSGrid class with the game logic and a grid of tkinter Labels and Buttons.
     Attributes:
         rootwindown: Main windown.
         root: Frame in the main window. The game is drawn here.
-        file_handler: Settings class for reading the settings file.
+        settings_handler: Settings class for reading the settings file.
         square_widgets: Grid of Buttons and Labels that depict the game squares
         text_widgets: Texts surrounding the game grid.
         flag_location: Locations of all marked/flagged squares.
@@ -30,16 +30,16 @@ class GameWindow():
 
     """
 
-    def __init__(self, root, file_handler):
+    def __init__(self, root, settings_handler):
         """Constructor. Sets up all attributes and the ui.
         Args:
             root: The main window.
-            file_handler: Settings class for file operations.
+            settings_handler: Settings class for file operations.
         """
         self.game_over_window = None
         self.rootwindown = root
         self.window()
-        self.file_handler = file_handler
+        self.settings_handler = settings_handler
         self.game_settings()
         self.init_attributes()
         self.images()
@@ -65,7 +65,7 @@ class GameWindow():
     def game_settings(self):
         """Loads game settings from file and assings them to attributes.
         """
-        self.settings = self.file_handler.load()
+        self.settings = self.settings_handler.load()
         self.playheight = int(self.settings[0])
         self.playwidth = int(self.settings[1])
         self.mines = int(self.settings[2])
@@ -412,7 +412,7 @@ class GameWindow():
         """
         self.timer = False
         self.text_widgets[1].config(text=f"Mines: 0")
-        self.game_over_window.game_over_popup(state, self.timer_count)
+        self.game_over_window.game_over_ui_main(state, self.timer_count)
 
     def update_timer(self):
         """Updates timer until timer_count reaches 999 seconds.

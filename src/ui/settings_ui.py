@@ -1,10 +1,10 @@
 from tkinter import Button, StringVar, Toplevel, Radiobutton, Grid, NSEW, NW, W, Label, Entry, DISABLED, NORMAL, messagebox
 
-class SettingsPopUp():
+class SettingsUI():
     """Window popup where settings for the game can be altered.
     Attributes:
         root: Main window
-        file_handler: Setting object.
+        settings_handler: Setting object.
         game: GameWindow
         settings: array of current settings
         playheight: GameWindow height.
@@ -16,28 +16,28 @@ class SettingsPopUp():
         pop: Popup window.
     """
 
-    def __init__(self, root, file_handler, game):
+    def __init__(self, root, settings_handler, game):
         """Constructor. Sets up attributes.
         Args:
             root: Main window
-            file_handler: Setting object.
+            settings_handler: Setting object.
             game: GameWindow
         """
         self.root = root
-        self.file_handler = file_handler
+        self.settings_handler = settings_handler
         self.game = game
         self.current_settings()
         self.options = ["10;10;10;50", "16;16;40;50", "16;30;99;50"]
         self.widgets = []
         self.setting = StringVar()
         self.pop = Toplevel(self.root)
-        self.popup()
+        self.settings_ui_main()
         self.error = False
  
     def current_settings(self):
         """Gets current game settings.
         """
-        self.settings = self.file_handler.load()
+        self.settings = self.settings_handler.load()
         self.playheight = int(self.settings[0])
         self.playwidth = int(self.settings[1])
         self.boxsize = int(self.settings[3])
@@ -47,9 +47,10 @@ class SettingsPopUp():
         """
         geometry_x = self.root.winfo_x()+(self.boxsize//2)*self.playwidth-150
         geometry_y = self.root.winfo_y()+(self.playheight + 1)*(self.boxsize//2)-100
-        return f"300x200+{geometry_x}+{geometry_y}"
+        self.pop.geometry(f"300x200+{geometry_x}+{geometry_y}")
+        self.pop.resizable(False, False)
 
-    def popup(self):
+    def settings_ui_main(self):
         """Calls functions to generate settings popup.
         """
         self.pop.focus_set()
@@ -58,8 +59,7 @@ class SettingsPopUp():
         self.buttons()
         self.labels()
         self.grid_config()
-        self.pop.geometry(self.geometry())
-        self.pop.resizable(False, False)
+        self.geometry()
 
     def labels(self):
         """Generates text on the popup window
@@ -104,7 +104,7 @@ class SettingsPopUp():
     def set_states(self):
         """Sets radiobutton states.
         """
-        current = ";".join(self.file_handler.load())
+        current = ";".join(self.settings_handler.load())
         if current not in self.options:
             self.widgets[3].select()
         else:
@@ -131,11 +131,11 @@ class SettingsPopUp():
             try:
                 correct, setting = self.get_entry()
                 if correct:
-                    self.file_handler.write(setting)
+                    self.settings_handler.write(setting)
             except TypeError:
                 self.error = True
         else:
-            self.file_handler.write(self.setting.get())
+            self.settings_handler.write(self.setting.get())
         if not self.error:
             self.pop.destroy()
             self.game.reset(True)

@@ -85,3 +85,12 @@ class Statistics:
                 self.stats[4] = "-1"
             else:
                 self.stats[4] = "1"
+
+    def percentage(self, a, b):
+        try:
+            value = (a/(a + b))*100
+            value = f"{value:.2f}" + " %"
+            return value
+        except ZeroDivisionError:
+            return "*insert joke here*"
+    

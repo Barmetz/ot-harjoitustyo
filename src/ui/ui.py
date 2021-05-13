@@ -1,15 +1,16 @@
 from tkinter import Tk, Menu
 from logic.settings import Settings
 from logic.statistics import Statistics
-from ui.settings_popup import SettingsPopUp
-from ui.game_window import GameWindow
-from ui.game_over_popup import GameOverWindow
+from ui.settings_ui import SettingsUI
+from ui.game_ui import GameUI
+from ui.game_over_ui import GameOverUI
+from ui.statistics_ui import StatisticsUI
 
 
 class UI():
     """Creates all windows and menubar.
     Attributes:
-        file_handler: Settings object.
+        settings: Settings object.
         root: Main window.
         game: GameWindow
         game_over_window: GameOverWindow
@@ -19,12 +20,12 @@ class UI():
     def __init__(self):
         """Constructor. Sets up attributes.
         """
-        self.file_handler = Settings()
-        self.stats = Statistics()
+        self.settings_handler = Settings()
+        self.stats_handler = Statistics()
         self.root = Tk()
         self.root.title("Minesweeper")
-        self.game = GameWindow(self.root, self.file_handler)
-        self.game_over_window = GameOverWindow(self.root, self.file_handler, self.stats)
+        self.game = GameUI(self.root, self.settings_handler)
+        self.game_over_window = GameOverUI(self.root, self.settings_handler, self.stats_handler)
         self.game.game_over_window = self.game_over_window
         self.game_over_window.game = self.game
         self.menubar()
@@ -35,10 +36,13 @@ class UI():
         """
         self.root.mainloop()
 
-    def settings_pop_up(self):
+    def settings_ui(self):
         """Opens the settings popup.
         """
-        SettingsPopUp(self.root, self.file_handler, self.game)
+        SettingsUI(self.root, self.settings_handler, self.game)
+    
+    def statistics_ui(self):
+        StatisticsUI(self.root, self.settings_handler, self.stats_handler)
 
     def menubar(self):
         """Creates menubar and its contents.
@@ -47,7 +51,8 @@ class UI():
         menu = Menu(menubar, tearoff=0)
         menu.add_command(label="New Game",
                          command=lambda x=False: self.game.reset(x))
-        menu.add_command(label="Settings", command=self.settings_pop_up)
+        menu.add_command(label="Settings", command=self.settings_ui)
+        menu.add_command(label="Statistics", command=self.statistics_ui)
         menu.add_separator()
         menu.add_command(label="Exit", command=self.root.destroy)
         menubar.add_cascade(label="Menu", menu=menu)
