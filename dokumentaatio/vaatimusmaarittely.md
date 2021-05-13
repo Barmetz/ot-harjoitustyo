@@ -14,7 +14,7 @@ Painikkeet uudelle pelille ja sovelluksen lopetukselle. Asetusikkuna, jossa voi 
  - [x] Perusteema. 
  - [X] Game Over ikkuna.
  - [ ] Statistiikka.
- - [X] Ensimmäinen avaus on aina 0. Vaatii hieman logiikan refaktorointia. 
+ - [X] Ensimmäinen avaus on aina 0.
  #### Kehitysideoita 
  - [ ] Animaatiot ja teemat.
  - [ ] Musiikki.
