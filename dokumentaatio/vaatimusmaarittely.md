@@ -15,7 +15,8 @@ Painikkeet uudelle pelille ja sovelluksen lopetukselle. Asetusikkuna, jossa voi 
  - [X] Game Over ikkuna.
  - [X] Statistiikka + ikkuna.
  - [X] Ensimmäinen avaus on aina 0.
- #### Kehitysideoita 
+ #### Kehitysideoita
+ - [ ] Statistiikan laajennus. Käyttäjät. Useammat highscoret.
  - [ ] Animaatiot ja lisäteemat.
  - [ ] Musiikki.
  - [ ] Peliportaali, jossa miinaharava on yksi peleistä, mutta on myös muita vaihtoehtoja.
