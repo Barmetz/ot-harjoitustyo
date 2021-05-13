@@ -10,7 +10,7 @@ class MSGrid:
         height: Grid height.
         width: Grid width.
         zeropath_clickcount: Specific attribute for zeropath function.
-                            Used for calculating amount of squares clicked.
+                            Used for calculating amount of squares in the path.
     """
 
     def __init__(self, height, width, mines):
