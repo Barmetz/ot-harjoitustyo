@@ -32,32 +32,32 @@ class MSGrid:
                     with items being the values of the squares.
         """
         grid = []
-        for j in range(self.height):
+        for j in range(self.__height):
             row = []
             for i in self.grid[j].values():
                 row.append(i.value)
             grid.append(row)
         return str(grid)
 
-    def update(self, height, width, mines):
+    def update(self, height: int, width: int, mines: int):
         """Updates new parametres and creates a new grid.
         Args:
             height: Desired grid height.
             width: Desired grid width.
             mines: Desired amount of mines.
         """
-        self.mines = mines
-        self.height = height
-        self.width = width
+        self.__mines = mines
+        self.__height = height
+        self.__width = width
         self.generate_grid()
 
     def generate_grid(self):
         """Creates a two dimensional set of dictionaries of the desired size.
         """
         grid = {}
-        for j in range(self.height):
+        for j in range(self.__height):
             row = {}
-            for i in range(self.width):
+            for i in range(self.__width):
                 row[i] = Square()
             grid[j] = row
         self.grid = grid
@@ -81,12 +81,12 @@ class MSGrid:
             i: Column of the designated square.
         """
         minecount = 0
-        disallowed = self.neighbours(j, i)
+        disallowed = self.__neighbours(j, i)
         disallowed.append([j, i])
         mines = []
-        while minecount < self.mines:
-            pos_j = randint(0, self.height-1)
-            pos_i = randint(0, self.width-1)
+        while minecount < self.__mines:
+            pos_j = randint(0, self.__height-1)
+            pos_i = randint(0, self.__width-1)
             coord = [pos_j, pos_i]
             if coord not in mines and coord not in disallowed:
                 mines.append(coord)
@@ -94,7 +94,7 @@ class MSGrid:
         for pos in mines:
             self.grid[pos[0]][pos[1]].value = "M"
 
-    def is_mine(self, j, i):
+    def __is_mine(self, j, i):
         """Checks if a designated square is a mine.
         Args:
             j: Row of the designated square.
@@ -106,17 +106,17 @@ class MSGrid:
         """For all squares calculates the amount of mines surrounding a square
         and assings the value to the square.
         """
-        for j in range(self.height):
-            for i in range(self.width):
-                if not self.is_mine(j, i):
+        for j in range(self.__height):
+            for i in range(self.__width):
+                if not self.__is_mine(j, i):
                     number = 0
-                    neighbours = self.neighbours(j, i)
+                    neighbours = self.__neighbours(j, i)
                     for pos in neighbours:
-                        if self.is_mine(pos[0], pos[1]):
+                        if self.__is_mine(pos[0], pos[1]):
                             number += 1
                     self.grid[j][i].value = str(number)
 
-    def neighbours(self, j, i):
+    def __neighbours(self, j, i):
         """Determines coordinates of squares around a designated square.
         Args:
             j: Row of the designated square.
@@ -127,21 +127,21 @@ class MSGrid:
             neighbours.append([j-1, i])
             if i > 0:
                 neighbours.append([j-1, i-1])
-            if i < self.width - 1:
+            if i < self.__width - 1:
                 neighbours.append([j-1, i+1])
         if i > 0:
             neighbours.append([j, i-1])
-        if i < self.width - 1:
+        if i < self.__width - 1:
             neighbours.append([j, i+1])
-        if j < self.height - 1:
+        if j < self.__height - 1:
             neighbours.append([j+1, i])
             if i > 0:
                 neighbours.append([j+1, i-1])
-            if i < self.width - 1:
+            if i < self.__width - 1:
                 neighbours.append([j+1, i+1])
         return neighbours
 
-    def neighbour_marked_count(self, j, i):
+    def __neighbour_marked_count(self, j, i):
         """Calculates the amount of flags surrounding a designated square.
         Args:
             j: Row of the designated square.
@@ -150,7 +150,7 @@ class MSGrid:
             number: Amount of flags surrounding the designated square.
         """
         number = 0
-        neighbours = self.neighbours(j, i)
+        neighbours = self.__neighbours(j, i)
         for pos in neighbours:
             if self.grid[pos[0]][pos[1]].marked:
                 number += 1
@@ -165,7 +165,7 @@ class MSGrid:
             visited: coordinates of the path and squares surrounding the path.
             zeropath_clickcount: amount of visited squares
         """
-        neighbours = self.neighbours(j, i)
+        neighbours = self.__neighbours(j, i)
         for pos in neighbours:
             if pos not in visited:
                 if self.grid[pos[0]][pos[1]].hidden:
@@ -186,8 +186,8 @@ class MSGrid:
             coordinates: Locations of specified squares.
         """
         coordinates = []
-        if int(self.grid[j][i].value) == self.neighbour_marked_count(j, i):
-            neighbours = self.neighbours(j, i)
+        if int(self.grid[j][i].value) == self.__neighbour_marked_count(j, i):
+            neighbours = self.__neighbours(j, i)
             for pos in neighbours:
                 if not self.grid[pos[0]][pos[1]].marked and self.grid[pos[0]][pos[1]].hidden:
                     self.grid[pos[0]][pos[1]].hidden = False

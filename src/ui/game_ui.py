@@ -9,8 +9,7 @@ class GameUI():
     Attributes:
         game_over_ui = GameOverUI class. Generates game over popup.
         settings_handler: Settings class for reading the settings file.
-        rootwindown: Main windown.
-        root: Frame in the main window. The game is drawn here.
+        root: Main window. The game is drawn here.
         playheight: Grid height.
         playwidth: Grid width.
         mines: Amount of mines in grid.
@@ -29,27 +28,20 @@ class GameUI():
 
     """
 
-    def __init__(self, rootwindow, settings_handler):
+    def __init__(self, root, settings_handler):
         """Constructor. Sets up all attributes and the ui.
         Args:
-            root: The main window.
+            rootwindow: The main window.
             settings_handler: Settings class for file operations.
         """
         self.game_over_ui = None
         self.settings_handler = settings_handler
-        self.rootwindown = rootwindow
-        self.window()
+        self.root = root
         self.game_settings()
         self.init_attributes()
         self.images()
         self.grid_obj = MSGrid(self.playheight, self.playwidth, self.mines)
         self.ui_grid()
-
-    def window(self):
-        """Creates a frame where the game is displayed.
-        """
-        self.root = Frame(self.rootwindown)
-        self.root.pack()
 
     def game_settings(self):
         """Loads game settings from file and assings them to attributes.
@@ -79,7 +71,7 @@ class GameUI():
     def create_images(self):
         """Creates arrays of tile graphics and resizes images according to boxsize.
         """
-        image_size = (self.boxsize, self.boxsize)
+        image_size = (self.boxsize+2, self.boxsize+2)
         half_image_size = (self.boxsize//2, self.boxsize//2)
         self.images_numbers.append(ImageTk.PhotoImage(
             Image.open("src/images/clicked.png").resize(image_size)))
@@ -110,9 +102,9 @@ class GameUI():
     def geometry(self):
         """Resizes the main windown according to the amount of squares and size of squares.
         """
-        self.rootwindown.geometry(
+        self.root.geometry(
             f"{self.playwidth*self.boxsize}x{(self.playheight + 2)*self.boxsize}+400+150")
-        self.rootwindown.resizable(False, False)
+        self.root.resizable(False, False)
 
     def create_buttons_and_labels(self):
         """Generates two dimensional sets of dictionaries for
@@ -155,7 +147,7 @@ class GameUI():
         """
         label = Label(self.root, borderwidth=2, bg="white",
                       relief="sunken", width=52, height=52)
-        label.bind("<Double-Button-1>", self.adjacent_click_indicator(j, i))
+        label.bind("<Double-Button-1>", self.double_click_indicator(j, i))
         return label
 
     def label_config(self):
@@ -223,13 +215,13 @@ class GameUI():
         """
         return lambda Button: self.right_click(j, i)
 
-    def adjacent_click_indicator(self, j, i):
+    def double_click_indicator(self, j, i):
         """Wrapper for button keybinding so that callback fuction doesn't break it.
         Args:
             j: Row of the designated square.
             i: Column of the designated square.
         """
-        return lambda Button: self.adjacent_click(j, i)
+        return lambda Button: self.double_click(j, i)
 
     def value(self, j, i):
         """Helper function that gets the value of a designated square.
@@ -339,7 +331,7 @@ class GameUI():
         self.text_widgets[1].config(
             text=f"Mines: {self.mines-len(self.flag_location)}")
 
-    def adjacent_click(self, j, i):
+    def double_click(self, j, i):
         """Calls drawing for specified adjacent squares after a designated square is double clicked.
         Args:
             j: Row of the designated square.

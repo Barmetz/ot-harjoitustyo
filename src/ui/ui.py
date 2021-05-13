@@ -5,7 +5,7 @@ from ui.settings_ui import SettingsUI
 from ui.game_ui import GameUI
 from ui.game_over_ui import GameOverUI
 from ui.statistics_ui import StatisticsUI
-
+from config import SETTINGS_FILENAME, STATISTICS_FILENAME
 
 class UI():
     """Creates all windows and menubar.
@@ -20,8 +20,8 @@ class UI():
     def __init__(self):
         """Constructor. Sets up attributes.
         """
-        self.settings_handler = Settings()
-        self.stats_handler = Statistics()
+        self.settings_handler = Settings(SETTINGS_FILENAME)
+        self.stats_handler = Statistics(STATISTICS_FILENAME)
         self.root = Tk()
         self.root.title("Minesweeper")
         self.game = GameUI(self.root, self.settings_handler)

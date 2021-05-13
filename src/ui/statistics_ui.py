@@ -60,6 +60,8 @@ class StatisticsUI:
 
     def update_option(self, value):
         """Detects changes in optionmenu object.
+        Args:
+            value: Needed to avoid error message.
         """
         self.text_update()
 
@@ -98,9 +100,10 @@ class StatisticsUI:
         """Checks if a highscore time exists.
         """
         if self.data[3] == "-1":
+            if self.data[2] == "0":
+                return "No games yet"
             return "Losing is fun"
-        else:
-            return self.data[3]
+        return self.data[3]
 
     def buttons(self):
         """Creates buttons.

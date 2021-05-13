@@ -9,29 +9,29 @@ class Settings:
         filepath: Path of the file
     """
 
-    def __init__(self):
+    def __init__(self, filename):
         """Constructor. Sets up default values.
         """
-        self.filename = 'settings.csv'
-        self.filepath = None
+        self.__filename = filename
+        self.__filepath = None
 
-    def get_filepath(self):
+    def __get_filepath(self):
         """Initializes filepath.
         """
-        self.filepath = FILE_PATH + self.filename
+        self.__filepath = FILE_PATH + self.__filename
 
     def load(self):
         """Checks if file exists.
         """
-        self.get_filepath()
-        if not Path(self.filepath).is_file():
-            self.create()
-        return self.read()
+        self.__get_filepath()
+        if not Path(self.__filepath).is_file():
+            self.__create()
+        return self.__read()
 
-    def create(self):
+    def __create(self):
         """Creates a new file with default values.
         """
-        Path(self.filepath).touch()
+        Path(self.__filepath).touch()
         self.write("10;10;10;50")
 
     def write(self, row):
@@ -39,14 +39,14 @@ class Settings:
         Args:
             row: The row containing setting information.
         """
-        with open(self.filepath, 'w') as file:
+        with open(self.__filepath, 'w') as file:
             file.write(row)
 
-    def read(self):
+    def __read(self):
         """Reads a row from file.
         Returns:
             row.split(';'): Array containing game settings.
         """
-        with open(self.filepath) as file:
+        with open(self.__filepath) as file:
             row = next(file)
             return row.split(';')
