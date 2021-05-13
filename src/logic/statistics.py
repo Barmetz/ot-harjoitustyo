@@ -71,8 +71,7 @@ class Statistics:
         """
         if setting in self.options:
             return self.options.index(setting)
-        else:
-            return 3
+        return 3
 
     def update_stats(self, setting, state, timer):
         """Calls functions to update statistics of a designated setting.
@@ -138,4 +137,4 @@ class Statistics:
             value = f"{value:.2f}" + " %"
             return value
         except ZeroDivisionError:
-            return "*insert joke here*"
+            return "*joke*"
