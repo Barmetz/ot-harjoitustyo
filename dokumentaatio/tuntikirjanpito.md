@@ -9,4 +9,5 @@
 |27.4.2021|13h|settings käsittelijä, settings popup, pakkausrakenne, refaktorointia|
 |4.5.2021|10h|kello, ruutujen tuplaklikkaus, game_over eri tiedostossa, settings error viestit, dokumentointi|
 |9.5.2021|8h|statistiikka, refaktorointi, widgettejä ei poisteta|
-|Total|57.5h|----|
+|13.5.2021|6.5h|statistiikkaUI, dokumentointi|
+|Total|64h|----|
