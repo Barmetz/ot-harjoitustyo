@@ -13,10 +13,10 @@ Painikkeet uudelle pelille ja sovelluksen lopetukselle. Asetusikkuna, jossa voi 
  - [X] Ruutujen tuplaklikkaus ominaisuus. Jos ruudun ympäriltä on jo liputettu sen arvon verran miinoja, peli klikkaa automaattisesti kaikki ruudun vieressä olevat ruudut auki.
  - [x] Perusteema. 
  - [X] Game Over ikkuna.
- - [ ] Statistiikka.
+ - [X] Statistiikka + ikkuna.
  - [X] Ensimmäinen avaus on aina 0.
  #### Kehitysideoita 
- - [ ] Animaatiot ja teemat.
+ - [ ] Animaatiot ja lisäteemat.
  - [ ] Musiikki.
  - [ ] Peliportaali, jossa miinaharava on yksi peleistä, mutta on myös muita vaihtoehtoja.
 
