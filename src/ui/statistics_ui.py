@@ -1,6 +1,7 @@
 from tkinter import Toplevel, Label, W, OptionMenu, StringVar, NSEW, Button, messagebox
 from tkinter.constants import NSEW
 
+
 class StatisticsUI:
     def __init__(self, root, settings_handler, stats_handler):
         self.root = root
@@ -29,12 +30,13 @@ class StatisticsUI:
         self.playheight = int(self.settings[0])
         self.playwidth = int(self.settings[1])
         self.boxsize = int(self.settings[3])
-    
+
     def stats_ui_optionmenu(self):
         self.options = ["10x10 grid, 10 mines",
-                 "16x16 grid, 40 mines", "16x30 grid, 99 mines", "Custom"]
+                        "16x16 grid, 40 mines", "16x30 grid, 99 mines", "Custom"]
         self.option.set(self.options[0])
-        menu = OptionMenu(self.pop, self.option, *self.options, command=self.update_option)
+        menu = OptionMenu(self.pop, self.option, *
+                          self.options, command=self.update_option)
         menu.grid(row=0, column=0, columnspan=2, sticky=NSEW)
 
     def update_option(self, value):
@@ -56,25 +58,28 @@ class StatisticsUI:
 
     def stats_ui_text_update(self):
         self.data = self.all_data[self.option_index()].split(";")
-        self.labels[0].config(text=f"Games: {int(self.data[1]) + int(self.data[2])}")
+        self.labels[0].config(
+            text=f"Games: {int(self.data[1]) + int(self.data[2])}")
         self.labels[1].config(text=f"Wins: {self.data[1]}")
         self.labels[2].config(text=f"Loses: {self.data[2]}")
-        self.labels[3].config(text=f"Percentage: {self.stats_handler.percentage(int(self.data[1]),int(self.data[2]))}")
+        self.labels[3].config(
+            text=f"Percentage: {self.stats_handler.percentage(int(self.data[1]),int(self.data[2]))}")
         self.labels[4].config(text=f"Best Time: {self.check_best_time()}")
         self.labels[5].config(text=f"Streak: {self.data[4]}")
-    
+
     def check_best_time(self):
         if self.data[3] == "-1":
             return "Losing is fun"
         else:
             return self.data[3]
-    
+
     def stats_ui_buttons(self):
-        button = Button(self.pop, text="Reset selected", command=self.reset_selected_stat)
+        button = Button(self.pop, text="Reset selected",
+                        command=self.reset_selected_stat)
         button.grid(row=4, column=0)
-        button = Button(self.pop, text="Reset ALL", command=self.reset_all_stats)
+        button = Button(self.pop, text="Reset ALL",
+                        command=self.reset_all_stats)
         button.grid(row=4, column=1)
-        
 
     def reset_selected_stat(self):
         ask = messagebox.askyesno('Reset', "Reset selected statistic?")
@@ -84,7 +89,6 @@ class StatisticsUI:
             self.stats_handler.write(self.all_data)
             self.all_data = self.stats_handler.load()
             self.stats_ui_text_update()
-
 
     def reset_all_stats(self):
         ask = messagebox.askyesno('Reset', "Reset ALL statistics?")
@@ -114,4 +118,3 @@ class StatisticsUI:
         self.pop.focus_set()
         self.pop.wait_visibility()
         self.pop.grab_set()
-    

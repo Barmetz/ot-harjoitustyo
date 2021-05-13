@@ -2,17 +2,19 @@ from tkinter import Label, Button, Grid, NSEW, Frame, NORMAL
 from PIL import Image, ImageTk
 from logic.gridlogic import MSGrid
 
-from time import perf_counter
 
 class GameUI():
-    """Class for the main game window. Game consists of two grids.
-    The MSGrid class with the game logic and a grid of tkinter Labels and Buttons.
+    """Class for the main game window. Game consists of three grids.
+    The MSGrid class with the game logic and a grid of tkinter Labels and a grid of tkinter Buttons.
     Attributes:
+        game_over_ui = GameOverUI class. Generates game over popup.
+        settings_handler: Settings class for reading the settings file.
         rootwindown: Main windown.
         root: Frame in the main window. The game is drawn here.
-        settings_handler: Settings class for reading the settings file.
-        square_widgets: Grid of Buttons and Labels that depict the game squares
-        text_widgets: Texts surrounding the game grid.
+        playheight: Grid height.
+        playwidth: Grid width.
+        mines: Amount of mines in grid.
+        boxsize: Size if drawn squares.
         flag_location: Locations of all marked/flagged squares.
         clickcount: Amount of clicked squares.
         timer_count = Counts seconds.
@@ -20,47 +22,34 @@ class GameUI():
         leave: Boolean to see if mouse is moved out of a button after clicking.
         images_numbers: Image objects for different number values.
         images_tile: Image objects for mines and tile designs.
-        grid_obj: MSGrid class that is the game logic.
-        game_over_window = GameOverWindow class for game over popup.
-
-        playheight: Grid height.
-        playwidth: Grid width.
-        mines: Amount of mines in grid.
-        boxsize: Size if drawn squares.
+        grid_obj: MSGrid class.
+        button_widgets: Grid of tkinter Buttons. Two-dimensional set of dictionaries.
+        label_widgets: Grid of tkinter Labels. Two-dimensional set of dictionaries.
+        text_widgets: Texts surrounding the game grid.
 
     """
 
-    def __init__(self, root, settings_handler):
+    def __init__(self, rootwindow, settings_handler):
         """Constructor. Sets up all attributes and the ui.
         Args:
             root: The main window.
             settings_handler: Settings class for file operations.
         """
-        self.game_over_window = None
-        self.rootwindown = root
-        self.window()
+        self.game_over_ui = None
         self.settings_handler = settings_handler
+        self.rootwindown = rootwindow
+        self.window()
         self.game_settings()
         self.init_attributes()
         self.images()
         self.grid_obj = MSGrid(self.playheight, self.playwidth, self.mines)
         self.ui_grid()
-    
-    def init_attributes(self):
-        self.flag_location = []
-        self.clickcount = 0
-        self.timer_count = 0
-        self.timer = False
-        self.leave = False
 
     def window(self):
+        """Creates a frame where the game is displayed.
+        """
         self.root = Frame(self.rootwindown)
         self.root.pack()
-
-    def images(self):
-        self.images_numbers = []
-        self.images_tile = []
-        self.create_images()
 
     def game_settings(self):
         """Loads game settings from file and assings them to attributes.
@@ -70,6 +59,18 @@ class GameUI():
         self.playwidth = int(self.settings[1])
         self.mines = int(self.settings[2])
         self.boxsize = int(self.settings[3])
+
+    def init_attributes(self):
+        self.flag_location = []
+        self.clickcount = 0
+        self.timer_count = 0
+        self.timer = False
+        self.leave = False
+
+    def images(self):
+        self.images_numbers = []
+        self.images_tile = []
+        self.create_images()
 
     def create_images(self):
         """Creates arrays of tile graphics and resize images according to boxsize.
@@ -95,10 +96,17 @@ class GameUI():
         self.button_widgets = {}
         self.label_widgets = {}
         self.text_widgets = []
+        self.geometry()
         self.create_buttons_and_labels()
-        self.playtext()
+        self.create_text()
         self.grid_config()
-        self.ui_geometry()
+    
+    def geometry(self):
+        """Resizes the main windown according to the amount of squares.
+        """
+        self.rootwindown.geometry(
+            f"{self.playwidth*self.boxsize}x{(self.playheight + 2)*self.boxsize}+400+150")
+        self.rootwindown.resizable(False, False)
 
     def create_buttons_and_labels(self):
         """Generates a two dimensional set of dictionaries.
@@ -109,7 +117,7 @@ class GameUI():
             widgetrow_labels = {}
             for i in range(self.playwidth):
                 button = self.create_button(j, i)
-                label = self.create_square_label(j, i)
+                label = self.create_label(j, i)
                 widgetrow_buttons[i] = button
                 widgetrow_labels[i] = label
             self.button_widgets[j] = widgetrow_buttons
@@ -132,8 +140,8 @@ class GameUI():
         button.bind("<Leave>", self.left_click_leave_indicator(j, i))
         button.bind("<Button-3>", self.right_click_indicator(j, i))
         return button
-    
-    def create_square_label(self, j, i):
+
+    def create_label(self, j, i):
         """Creates a label for designated square and keybinds it.
         Args:
             j: Row of the designated square.
@@ -150,7 +158,8 @@ class GameUI():
                 if self.value(j, i) == "M":
                     self.label_widgets[j][i].config(image=self.images_tile[1])
                 else:
-                    self.label_widgets[j][i].config(image=self.images_numbers[int(self.value(j, i))])
+                    self.label_widgets[j][i].config(
+                        image=self.images_numbers[int(self.value(j, i))])
 
     def grid_config(self):
         for j in range(self.playheight):
@@ -158,14 +167,7 @@ class GameUI():
         for i in range(self.playwidth):
             Grid.columnconfigure(self.root, i, weight=1)
 
-    def ui_geometry(self):
-        """Resizes the main windown according to the amount of squares.
-        """
-        self.rootwindown.geometry(
-            f"{self.playwidth*self.boxsize}x{(self.playheight + 2)*self.boxsize}+400+150")
-        self.rootwindown.resizable(False, False)
-
-    def playtext(self):
+    def create_text(self):
         """Generates texts surrounding the game grid.
         """
         botleft = Label(self.root, text=f"Timer: {self.timer_count}")
@@ -298,10 +300,7 @@ class GameUI():
             self.update_zeropath(j, i)
         else:
             self.show_square(j, i)
-        if self.value(j, i) == "M":
-            minebool = True
-        else:
-            minebool = False
+        minebool = self.value(j, i) == "M"
         self.clickcount += 1
         self.check_game_over(minebool)
 
@@ -339,7 +338,7 @@ class GameUI():
     def update_zeropath(self, j, i):
         """Calls functions to calculate coordinates of a path of zeros and surrounding squares
         starting from a designated square.
-        Then draws squares corresponging to these coordinates.
+        Then draws the squares at these coordinates.
         Args:
             j: Row of the designated square.
             i: Column of the designated square.
@@ -348,9 +347,7 @@ class GameUI():
         coordinates, clicks = self.grid_obj.zeropath(j, i, [[j, i]])
         self.clickcount += clicks
         for pos in coordinates:
-            j = pos[0]
-            i = pos[1]
-            self.show_square(j, i)
+            self.show_square(pos[0], pos[1])
 
     def reset(self, geobool):
         """Calls functions to generate a new game and resets essential attributes.
@@ -365,10 +362,8 @@ class GameUI():
         self.game_settings()
         self.grid_obj.update(self.playheight, self.playwidth, self.mines)
         if geobool:
-            self.root.destroy()
-            self.window()
             self.ui_grid()
-            self.game_over_window.update_settings()
+            self.game_over_ui.update_settings()
 
     def button_reset(self):
         for j in range(self.playheight):
@@ -412,13 +407,13 @@ class GameUI():
         """
         self.timer = False
         self.text_widgets[1].config(text=f"Mines: 0")
-        self.game_over_window.game_over_ui_main(state, self.timer_count)
+        self.game_over_ui.main(state, self.timer_count)
 
     def update_timer(self):
         """Updates timer until timer_count reaches 999 seconds.
         """
         if self.timer:
-            if self.timer_count < 1000:
+            if self.timer_count < 999:
                 self.timer_count += 1
                 self.text_widgets[0].config(text=f"Timer: {self.timer_count}")
                 self.root.after(1000, self.update_timer)

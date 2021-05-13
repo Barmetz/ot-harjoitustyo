@@ -1,6 +1,7 @@
 from pathlib import Path
 from config import FILE_PATH
 
+
 class Statistics:
     def __init__(self):
         self.filename = 'statistics.csv'
@@ -93,4 +94,3 @@ class Statistics:
             return value
         except ZeroDivisionError:
             return "*insert joke here*"
-    

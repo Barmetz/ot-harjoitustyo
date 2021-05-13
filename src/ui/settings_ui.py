@@ -1,5 +1,6 @@
 from tkinter import Button, StringVar, Toplevel, Radiobutton, Grid, NSEW, NW, W, Label, Entry, DISABLED, NORMAL, messagebox
 
+
 class SettingsUI():
     """Window popup where settings for the game can be altered.
     Attributes:
@@ -26,14 +27,24 @@ class SettingsUI():
         self.root = root
         self.settings_handler = settings_handler
         self.game = game
-        self.current_settings()
         self.options = ["10;10;10;50", "16;16;40;50", "16;30;99;50"]
         self.widgets = []
         self.setting = StringVar()
-        self.pop = Toplevel(self.root)
-        self.settings_ui_main()
         self.error = False
- 
+        self.main()
+
+    def main(self):
+        """Calls functions to generate settings popup.
+        """
+        self.current_settings()
+        self.pop = Toplevel(self.root)
+        self.pop.title("Settings")
+        self.geometry()
+        self.focus()
+        self.buttons()
+        self.labels()
+        self.grid_config()
+
     def current_settings(self):
         """Gets current game settings.
         """
@@ -50,16 +61,12 @@ class SettingsUI():
         self.pop.geometry(f"300x200+{geometry_x}+{geometry_y}")
         self.pop.resizable(False, False)
 
-    def settings_ui_main(self):
-        """Calls functions to generate settings popup.
+    def focus(self):
+        """Grabs focus to the popup window and prevent interactions with the GameWindow.
         """
         self.pop.focus_set()
+        self.pop.wait_visibility()
         self.pop.grab_set()
-        self.pop.title("Settings")
-        self.buttons()
-        self.labels()
-        self.grid_config()
-        self.geometry()
 
     def labels(self):
         """Generates text on the popup window
@@ -82,15 +89,15 @@ class SettingsUI():
                 text=texts[i], value=self.options[i], command=self.check_custom)
             button.grid(row=i+1, column=0, sticky=NSEW)
             self.widgets.append(button)
-        self.custom_game()
+        self.custom_game_widgets()
         self.set_states()
         button4 = Button(self.pop, text="OK", command=self.change_setting)
         button4.grid(row=4, column=0, sticky=NSEW)
         button5 = Button(self.pop, text="Cancel", command=self.pop.destroy)
         button5.grid(row=4, column=2, sticky=NSEW)
 
-    def custom_game(self):
-        """Generates entrys for inputting custom game settings.
+    def custom_game_widgets(self):
+        """Generates radiobutton and entrys for inputting custom game settings.
         """
         button = Radiobutton(
             self.pop, text="custom", variable=self.setting, value="1", command=self.check_custom)
@@ -114,6 +121,17 @@ class SettingsUI():
                     self.widgets[i].select()
                 else:
                     self.widgets[i].deselect()
+
+    def check_custom(self):
+        """Checks if the custom setting option is selected and
+        disables or activates the entry boxes accordingly.
+        """
+        if self.setting.get() == "1":
+            for i in self.widgets[4:]:
+                i.config(state=NORMAL)
+        else:
+            for i in self.widgets[4:]:
+                i.config(state=DISABLED)
 
     def grid_config(self):
         """Configures the placement grid.
@@ -140,17 +158,6 @@ class SettingsUI():
             self.pop.destroy()
             self.game.reset(True)
 
-    def check_custom(self):
-        """Checks if the custom setting option is selected and
-        disables or activates the entry boxes accordingly.
-        """
-        if self.setting.get() == "1":
-            for i in self.widgets[4:]:
-                i.config(state=NORMAL)
-        else:
-            for i in self.widgets[4:]:
-                i.config(state=DISABLED)
-
     def get_entry(self):
         """Formulates a string out of the contents of the entry boxes.
         """
@@ -171,7 +178,8 @@ class SettingsUI():
             if correct:
                 return correct, setting
             else:
-                messagebox.showerror("Error", "Values out of range or too many mines")
+                messagebox.showerror(
+                    "Error", "Values out of range or too many mines")
         except ValueError:
             messagebox.showerror("Error", "Invalid input")
             self.error = True
