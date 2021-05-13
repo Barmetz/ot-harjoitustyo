@@ -6,10 +6,10 @@ class GameOverUI():
     Attributes:
         game: main GameWindow object.
         root: Main window.
-        pop: Tkinter Toplevel object.
         settings_handler: Settings class for reading the settings file.
         stats_handler = Statistics class for updating statistics
-        data = Statistics to be displayed on screen
+        data = Statistics to be displayed on screen. 
+        pop: Tkinter Toplevel object.
     """
 
     def __init__(self, root, settings_handler, stats_handler):

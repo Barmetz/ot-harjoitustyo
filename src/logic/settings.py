@@ -3,7 +3,7 @@ from config import FILE_PATH
 
 
 class Settings:
-    """Class for writing and  areading file that contains settings for the game.
+    """Class for writing and reading a file that contains settings for the game.
     Attributes:
         filename: Name of the file
         filepath: Path of the file

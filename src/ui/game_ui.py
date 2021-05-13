@@ -100,7 +100,7 @@ class GameUI():
         self.create_buttons_and_labels()
         self.create_text()
         self.grid_config()
-    
+
     def geometry(self):
         """Resizes the main windown according to the amount of squares.
         """
@@ -357,13 +357,13 @@ class GameUI():
         self.init_attributes()
         if geobool:
             self.destroy_widgets()
-        else:
-            self.button_reset()
-        self.game_settings()
-        self.grid_obj.update(self.playheight, self.playwidth, self.mines)
-        if geobool:
+            self.game_settings()
+            self.grid_obj.update(self.playheight, self.playwidth, self.mines)
             self.ui_grid()
             self.game_over_ui.update_settings()
+        else:
+            self.grid_obj.generate_grid()
+            self.button_reset()
 
     def button_reset(self):
         for j in range(self.playheight):

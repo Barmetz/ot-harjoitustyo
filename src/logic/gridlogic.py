@@ -6,32 +6,30 @@ class MSGrid:
     """Grid of Square objects that represents the game.
     Functions for changing square values and calculating paths:
     Attributes:
+        grid: Two dimensional set of dictionaries.
         mines: Amount of mines the grid should contain.
-        height: Grid height.
-        width: Grid width.
+        height: Height of the grid.
+        width: Width of the grid.
         zeropath_clickcount: Specific attribute for zeropath function.
                             Used for calculating amount of squares in the path.
     """
 
-    def __init__(self, height, width, mines):
-        """Constructor that sets up attributes and calls main function.
+    def __init__(self, height: int, width: int, mines: int):
+        """Constructor. Calls functions to set up a grid.
         Args:
             height: Desired grid height.
             width: Desired grid width.
             mines: Desired amount of mines.
-            grid: Two dimensional set of dictionaries.
         """
-        self.mines = mines
-        self.height = height
-        self.width = width
-        self.generate_grid()
+        self.grid = {}
+        self.update(height, width, mines)
         self.zeropath_clickcount = 0
 
     def __str__(self):
         """Forms a string type version of the grid.
         Returns:
             str(grid): String type version of the two-dimensional grid
-                    with items being the values of squares.
+                    with items being the values of the squares.
         """
         grid = []
         for j in range(self.height):
@@ -42,7 +40,7 @@ class MSGrid:
         return str(grid)
 
     def update(self, height, width, mines):
-        """Sets up new parametres and creates a new grid
+        """Updates new parametres and creates a new grid.
         Args:
             height: Desired grid height.
             width: Desired grid width.
@@ -54,9 +52,7 @@ class MSGrid:
         self.generate_grid()
 
     def generate_grid(self):
-        """Cretes a two dimensional set of dictionaries of the initialized size.
-        Returns:
-            grid: Two dimensional set of dictionaries.
+        """Creates a two dimensional set of dictionaries of the desired size.
         """
         grid = {}
         for j in range(self.height):
@@ -78,7 +74,8 @@ class MSGrid:
     def place_mines(self, j, i):
         """Randomizes coordinates for mines and places the mines in to the grid.
         Designated square is the first square clicked at game start.
-        Designated square and its neighbours cant be mines to ensure a playable/enjoyable game start.
+        Designated square and its neighbours cant be mines to ensure
+        a playable/enjoyable game start.
         Args:
             j: Row of the designated square.
             i: Column of the designated square.
@@ -98,7 +95,7 @@ class MSGrid:
             self.grid[pos[0]][pos[1]].value = "M"
 
     def is_mine(self, j, i):
-        """Checks if designated square is a mine
+        """Checks if a designated square is a mine.
         Args:
             j: Row of the designated square.
             i: Column of the designated square.
@@ -106,7 +103,7 @@ class MSGrid:
         return self.grid[j][i].value == "M"
 
     def place_numbers(self):
-        """Calculates the amount of mines surrounding every square
+        """For all squares calculates the amount of mines surrounding a square
         and assings the value to the square.
         """
         for j in range(self.height):
@@ -120,7 +117,7 @@ class MSGrid:
                     self.grid[j][i].value = str(number)
 
     def neighbours(self, j, i):
-        """Determines coordinates of surrounding squares in relation to designated square.
+        """Determines coordinates of squares around a designated square.
         Args:
             j: Row of the designated square.
             i: Column of the designated square.
@@ -145,12 +142,12 @@ class MSGrid:
         return neighbours
 
     def neighbour_marked_count(self, j, i):
-        """Calculates the amount of flags surrounding designated square.
+        """Calculates the amount of flags surrounding a designated square.
         Args:
             j: Row of the designated square.
             i: Column of the designated square.
         Returns:
-            number: Amount of flags surrounding designated square.
+            number: Amount of flags surrounding the designated square.
         """
         number = 0
         neighbours = self.neighbours(j, i)
@@ -160,8 +157,7 @@ class MSGrid:
         return number
 
     def zeropath(self, j, i, visited):
-        """Recursive function that calculates a path of zeros starting from designated square.
-        Designated square should have a value of 0. Also processes all squares surrounding the path.
+        """Recursive function that calculates a path of zeros starting from a designated square.
         Args:
             j: Row of the designated square.
             i: Column of the designated square.
@@ -181,7 +177,7 @@ class MSGrid:
         return visited, self.zeropath_clickcount
 
     def adjacent(self, j, i):
-        """Calculates all non-flagged and hidden squares surrounding the designated square.
+        """Calculates all non-flagged and hidden squares surrounding a designated square.
         Args:
             j: Row of the designated square.
             i: Column of the designated square.
