@@ -10,4 +10,5 @@
 |4.5.2021|10h|kello, ruutujen tuplaklikkaus, game_over eri tiedostossa, settings error viestit, dokumentointi|
 |9.5.2021|8h|statistiikka, refaktorointi, widgettejä ei poisteta|
 |13.5.2021|6.5h|statistiikkaUI, dokumentointi|
-|Total|64h|----|
+||2h|testit|
+|Total|66h|----|
