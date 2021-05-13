@@ -2,19 +2,20 @@ from tkinter import Button, StringVar, Toplevel, Radiobutton, Grid, NSEW, NW, W,
 
 
 class SettingsUI():
-    """Window popup where settings for the game can be altered.
+    """Window where settings for the game can be altered.
     Attributes:
-        root: Main window
+        root: Main window.
         settings_handler: Setting object.
         game: GameWindow
-        settings: array of current settings
-        playheight: GameWindow height.
-        playwidth: GameWindow width.
-        boxsize: GameWindow size of the squares.
         options: Array of preset options.
         widgets: Array of widgets on the popup.
         setting: Variable for the selected setting.
-        pop: Popup window.
+        error: Boolean for determining invalid input.
+        settings: Array of current settings
+        playheight: GameUI height.
+        playwidth: GameUI width.
+        boxsize: GameUI size of the squares.
+        pop: Popup window. Everything displayed is here.
     """
 
     def __init__(self, root, settings_handler, game):
@@ -22,7 +23,7 @@ class SettingsUI():
         Args:
             root: Main window
             settings_handler: Setting object.
-            game: GameWindow
+            game: GameUI object.
         """
         self.root = root
         self.settings_handler = settings_handler
@@ -54,7 +55,7 @@ class SettingsUI():
         self.boxsize = int(self.settings[3])
 
     def geometry(self):
-        """Sets the popup window size and positions it in the center of the GameWindow.
+        """Sets the popup window size and positions it in the center of the GameUI.
         """
         geometry_x = self.root.winfo_x()+(self.boxsize//2)*self.playwidth-150
         geometry_y = self.root.winfo_y()+(self.playheight + 1)*(self.boxsize//2)-100
@@ -62,7 +63,7 @@ class SettingsUI():
         self.pop.resizable(False, False)
 
     def focus(self):
-        """Grabs focus to the popup window and prevent interactions with the GameWindow.
+        """Grabs focus to the popup window and prevent interactions with the GameUI.
         """
         self.pop.focus_set()
         self.pop.wait_visibility()

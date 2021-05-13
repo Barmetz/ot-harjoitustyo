@@ -4,18 +4,20 @@ from tkinter import Toplevel, Label, Button, NSEW, W
 class GameOverUI():
     """Class for the game over popup window.
     Attributes:
-        game: main GameWindow object.
+        game: main GameUI object.
         root: Main window.
         settings_handler: Settings class for reading the settings file.
-        stats_handler = Statistics class for updating statistics
-        data = Statistics to be displayed on screen. 
+        stats_handler = Statistics class for updating statistics.
+        data = Statistics to be displayed on screen.
         pop: Tkinter Toplevel object.
     """
 
     def __init__(self, root, settings_handler, stats_handler):
-        """Sets up default values for the attributes.
+        """Constructor.
         Args:
             root: Main window.
+            settings_handler: Settings class for reading the settings file.
+            stats_handler = Statistics class for updating statistics.
         """
         self.game = None
         self.root = root
@@ -23,9 +25,10 @@ class GameOverUI():
         self.stats_handler = stats_handler
 
     def main(self, state, timer):
-        """Calls functions to generate game over popup.
+        """Calls functions to generate gameover popup.
         Args:
             state: Tells if game was won or lost.
+            timer: Tells how long the game took.
         """
         self.update_settings()
         self.data = self.stats_handler.update_stats(
@@ -47,7 +50,7 @@ class GameOverUI():
         self.boxsize = int(self.settings[3])
 
     def create_general_text(self, state):
-        """Generates text on the popup window
+        """Creates gameover message.
         Args:
             state: Tells if game was won or lost.
         """
@@ -60,6 +63,10 @@ class GameOverUI():
         label.grid(row=0, column=0, columnspan=2, sticky=NSEW)
 
     def create_stat_text(self, timer):
+        """Creates labels displaying statistics.
+        Args:
+            timer: Tells how long the game took.
+        """
         label = Label(
             self.pop, text=f"Games: {int(self.data[1]) + int(self.data[2])}")
         label.grid(row=1, column=0, sticky=W)
@@ -80,13 +87,15 @@ class GameOverUI():
         label.grid(row=3, column=1, sticky=W)
 
     def check_best_time(self):
+        """Checks if a highscore time exists.
+        """
         if self.data[3] == "-1":
             return "Losing is fun"
         else:
             return self.data[3]
 
     def create_buttons(self):
-        """Generates buttons on the popup window
+        """Generates buttons.
         """
         button = Button(self.pop, text="New Game",
                         command=lambda: self.reset_pop())
@@ -96,13 +105,15 @@ class GameOverUI():
         self.pop.protocol("WM_DELETE_WINDOW", lambda: self.root.destroy())
 
     def grid_config(self):
+        """Configures tkinter grid weights.
+        """
         for i in range(2):
             self.pop.grid_columnconfigure(i, weight=1)
         for j in range(6):
             self.pop.grid_rowconfigure(j, weight=1)
 
     def geometry(self):
-        """Sets the popup window size and positions it in the center of the GameWindow.
+        """Sets the popup window size and positions it in the center of the main window.
         """
         geometry_x = self.root.winfo_x()+(self.boxsize//2)*self.playwidth-125
         geometry_y = self.root.winfo_y()+(self.playheight + 1) * \
@@ -111,7 +122,7 @@ class GameOverUI():
         self.pop.resizable(False, False)
 
     def focus(self):
-        """Grabs focus to the popup window and prevent interactions with the GameWindow.
+        """Grabs focus to the popup window and prevents interactions with the GameUI.
         """
         self.pop.focus_set()
         self.pop.wait_visibility()

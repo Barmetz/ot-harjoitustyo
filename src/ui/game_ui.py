@@ -5,7 +5,7 @@ from logic.gridlogic import MSGrid
 
 class GameUI():
     """Class for the main game window. Game consists of three grids.
-    The MSGrid class with the game logic and a grid of tkinter Labels and a grid of tkinter Buttons.
+    The MSGrid class with the game logic, a grid of tkinter Labels and a grid of tkinter Buttons.
     Attributes:
         game_over_ui = GameOverUI class. Generates game over popup.
         settings_handler: Settings class for reading the settings file.
@@ -14,9 +14,9 @@ class GameUI():
         playheight: Grid height.
         playwidth: Grid width.
         mines: Amount of mines in grid.
-        boxsize: Size if drawn squares.
+        boxsize: Size of drawn squares.
         flag_location: Locations of all marked/flagged squares.
-        clickcount: Amount of clicked squares.
+        clickcount: Amount of clicked squares. Calculates win condition.
         timer_count = Counts seconds.
         timer = Tells if timer is on or off.
         leave: Boolean to see if mouse is moved out of a button after clicking.
@@ -61,6 +61,8 @@ class GameUI():
         self.boxsize = int(self.settings[3])
 
     def init_attributes(self):
+        """Sets up default value attributes.
+        """
         self.flag_location = []
         self.clickcount = 0
         self.timer_count = 0
@@ -68,12 +70,14 @@ class GameUI():
         self.leave = False
 
     def images(self):
+        """Sets up images for button and label visuals.
+        """
         self.images_numbers = []
         self.images_tile = []
         self.create_images()
 
     def create_images(self):
-        """Creates arrays of tile graphics and resize images according to boxsize.
+        """Creates arrays of tile graphics and resizes images according to boxsize.
         """
         image_size = (self.boxsize, self.boxsize)
         half_image_size = (self.boxsize//2, self.boxsize//2)
@@ -93,6 +97,8 @@ class GameUI():
             "src/images/wrong_flag.png").resize((image_size))))
 
     def ui_grid(self):
+        """Calls functions to generate the visual grid.
+        """
         self.button_widgets = {}
         self.label_widgets = {}
         self.text_widgets = []
@@ -102,15 +108,15 @@ class GameUI():
         self.grid_config()
 
     def geometry(self):
-        """Resizes the main windown according to the amount of squares.
+        """Resizes the main windown according to the amount of squares and size of squares.
         """
         self.rootwindown.geometry(
             f"{self.playwidth*self.boxsize}x{(self.playheight + 2)*self.boxsize}+400+150")
         self.rootwindown.resizable(False, False)
 
     def create_buttons_and_labels(self):
-        """Generates a two dimensional set of dictionaries.
-        Items are tkinter buttons. Also configures tkinter grid for the frame.
+        """Generates two dimensional sets of dictionaries for
+        buttons and labels.
         """
         for j in range(self.playheight):
             widgetrow_buttons = {}
@@ -153,6 +159,8 @@ class GameUI():
         return label
 
     def label_config(self):
+        """Assings correct image to labels.
+        """
         for j in range(self.playheight):
             for i in range(self.playwidth):
                 if self.value(j, i) == "M":
@@ -162,6 +170,8 @@ class GameUI():
                         image=self.images_numbers[int(self.value(j, i))])
 
     def grid_config(self):
+        """Configures grid weights.
+        """
         for j in range(self.playheight):
             Grid.rowconfigure(self.root, j, weight=1)
         for i in range(self.playwidth):
@@ -182,7 +192,7 @@ class GameUI():
         self.text_widgets.append(botright)
 
     def left_click_indicator(self, j, i):
-        """Wrappers for button keybinding so that callback fuction doesn't break it.
+        """Wrapper for button keybinding so that callback fuction doesn't break it.
         Args:
             j: Row of the designated square.
             i: Column of the designated square.
@@ -190,7 +200,7 @@ class GameUI():
         return lambda Button: self.left_click(j, i)
 
     def left_click_leave_indicator(self, j, i):
-        """Wrappers for button keybinding so that callback fuction doesn't break it.
+        """Wrapper for button keybinding so that callback fuction doesn't break it.
         Args:
             j: Row of the designated square.
             i: Column of the designated square.
@@ -198,7 +208,7 @@ class GameUI():
         return lambda Button: self.left_click_leave(j, i)
 
     def left_click_release_indicator(self, j, i):
-        """Wrappers for button keybinding so that callback fuction doesn't break it.
+        """Wrapper for button keybinding so that callback fuction doesn't break it.
         Args:
             j: Row of the designated square.
             i: Column of the designated square.
@@ -206,7 +216,7 @@ class GameUI():
         return lambda Button: self.left_click_release(j, i)
 
     def right_click_indicator(self, j, i):
-        """Wrappers for button keybinding so that callback fuction doesn't break it.
+        """Wrapper for button keybinding so that callback fuction doesn't break it.
         Args:
             j: Row of the designated square.
             i: Column of the designated square.
@@ -214,7 +224,7 @@ class GameUI():
         return lambda Button: self.right_click(j, i)
 
     def adjacent_click_indicator(self, j, i):
-        """Wrappers for button keybinding so that callback fuction doesn't break it.
+        """Wrapper for button keybinding so that callback fuction doesn't break it.
         Args:
             j: Row of the designated square.
             i: Column of the designated square.
@@ -288,8 +298,7 @@ class GameUI():
                 self.check_square(j, i)
 
     def check_square(self, j, i):
-        """Draws designated square as a label according to its value or
-        calls functions according to the value of the square.
+        """Draws designated square as a label according to its value.
         Calls functions to check if game is over.
         Args:
             j: Row of the designated square.
@@ -305,6 +314,11 @@ class GameUI():
         self.check_game_over(minebool)
 
     def show_square(self, j, i):
+        """Shows designated square as a label.
+        Args:
+            j: Row of the designated square.
+            i: Column of the designated square.
+        """
         self.label_widgets[j][i].grid(row=j, column=i)
 
     def right_click(self, j, i):
@@ -366,6 +380,8 @@ class GameUI():
             self.button_reset()
 
     def button_reset(self):
+        """Resets buttons to be visible instead of labels.
+        """
         for j in range(self.playheight):
             for i in range(self.playwidth):
                 self.label_widgets[j][i].grid_forget()
@@ -374,6 +390,8 @@ class GameUI():
                 button.grid(row=j, column=i)
 
     def destroy_widgets(self):
+        """Destroys all widgets.
+        """
         for j in range(self.playheight):
             for i in range(self.playwidth):
                 self.label_widgets[j][i].destroy()
@@ -401,7 +419,7 @@ class GameUI():
                     image=self.images_tile[3])
 
     def game_over(self, state):
-        """Sets game over text and calls popup function.
+        """Calls gameover window.
         Args:
             state: Whether game is won or lost.
         """

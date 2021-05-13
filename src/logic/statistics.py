@@ -8,6 +8,7 @@ class Statistics:
         filename: Name of the file.
         filepath: Path of the file.
         options: Default game settings.
+        stats: Used to update statistics of designated game setting.
     """
     def __init__(self):
         """Constructor. Sets up default values.
@@ -15,6 +16,7 @@ class Statistics:
         self.filename = 'statistics.csv'
         self.filepath = None
         self.options = ["10;10;10;50", "16;16;40;50", "16;30;99;50"]
+        self.stats = []
         self.load()
 
     def get_filepath(self):

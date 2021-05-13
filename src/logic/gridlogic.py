@@ -177,7 +177,8 @@ class MSGrid:
         return visited, self.zeropath_clickcount
 
     def adjacent(self, j, i):
-        """Calculates all non-flagged and hidden squares surrounding a designated square.
+        """Calculates all non-flagged and hidden squares surrounding a designated square if
+        a square is surrounded with amount of flags equal to its value.
         Args:
             j: Row of the designated square.
             i: Column of the designated square.
