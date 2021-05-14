@@ -9,7 +9,7 @@ Painikkeet uudelle pelille ja sovelluksen lopetukselle. Asetusikkuna, jossa voi 
  - [X] Toimiva peli. Ruutujen arvot, miinat, klikkailu. 
  - [X] Kello.
  - [x] Mahdollisuus liputtaa ruutuja osoittamaan miinaa ja miinalaskuri.
- - [x] Eri kokoiset ruudukot ja settings ikkuna, josta ruudukkoja voi vaihtaa.
+ - [x] Eri kokoiset ruudukot ja settings ikkuna, josta ruudukkon kokoa voi vaihtaa.
  - [X] Ruutujen tuplaklikkaus ominaisuus. Jos ruudun ympäriltä on jo liputettu sen arvon verran miinoja, peli klikkaa automaattisesti kaikki ruudun vieressä olevat ruudut auki.
  - [x] Perusteema. 
  - [X] Game Over ikkuna.
@@ -17,9 +17,7 @@ Painikkeet uudelle pelille ja sovelluksen lopetukselle. Asetusikkuna, jossa voi 
  - [X] Ensimmäinen avaus on aina 0.
  #### Kehitysideoita
  - [ ] Statistiikan laajennus. Käyttäjät. Useammat highscoret.
- - [ ] Toiston poisto Settings ja Statistics luokista
- - [ ] Logiikan eriyttäminen vielä GameUI luokasta. Esim game-over konditiot. 
+ - [ ] Toiston poisto Settings ja Statistics luokista. Jokaisessa UI luokassa on myös toistettuna pelin asetusten hakeminen.
+ - [ ] Logiikan eriyttäminen vielä enemmän GameUI luokasta. Esim game-over konditiot. 
  - [ ] Animaatiot ja lisäteemat.
- - [ ] Musiikki.
- - [ ] Peliportaali, jossa miinaharava on yksi peleistä, mutta on myös muita vaihtoehtoja.
-
+ - [ ] Musiikki?
