@@ -3,7 +3,7 @@ Ohjelman logiikka testataan automaattisin testein. Käyttöliittymään liittyv�
 
 ## Automaattiset testit
 
-Koska käyttöliittymää ei oteta huomioon, on testauskattavuus 99%. 
+Koska käyttöliittymää ei oteta huomioon, on testikattavuus 99%. 
 <img src="https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/test_coverage.png">
 
 ### Square
