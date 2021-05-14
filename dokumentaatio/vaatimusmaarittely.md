@@ -4,7 +4,7 @@ Miinaharava. Pelin tarkoitus on klikata ruutuja, jotka paljastavat kuinka monta 
 Käyttöliittymä koostuu neljästä mahdollisesta ikkunasta. Osaan ikkunoista pääsee käsiksi pääikkunan vasemmasta yläkulmasta löytyvästä menu painikkeesta. Neljä ikkunaa ovat
 
 - Peliruudukko, jossa peliä pelataan. Ruudukon alareunassa laskuri miinojen määrälle ja kello. Aukeaa peliä avatessa.
-- Endgame ikkuna, joka ilmoittaa voititko vai hävisitkö pelin ja statistiikan liittyen juuri pelattun pelin kokoon. Esimerkiksi jos pelaat 10x10 ruudukon, jossa on 10 miinaa, peli näyttää siihen liittyviä tietoja. Ikkunassa on painikkeet uudelle pelille ja sovelluksen lopetukselle.
+- Endgame ikkuna, joka ilmoittaa voititko vai hävisitkö pelin ja statistiikan liittyen juuri pelattun pelin kokoon. Esimerkiksi jos pelaat 10x10 ruudukon, jossa on 10 miinaa, peli näyttää siihen liittyviä tietoja. Tietoja ovat esimerkiksi voittojen ja häviöiden määrä ja paras aika. Ikkunassa on painikkeet uudelle pelille ja sovelluksen lopetukselle.
 - Asetusikkuna, jossa voi vaihtaa ruudukon kokoa ja miinojen määrää. Saatavilla menusta.
 - Statistiikkaikkuna, josta voit valita ruudukon koon ja nähdä siihen liittyvät statistiikat. Painikkeet statistiikan resetoinnille. Saatavilla menusta.
 
