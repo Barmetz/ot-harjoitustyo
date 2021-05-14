@@ -1,10 +1,16 @@
 ## Sovellus
 Miinaharava. Pelin tarkoitus on klikata ruutuja, jotka paljastavat kuinka monta miinaa on viereisissä ruuduissa. Tarkoitus olla klikkaamatta miinoja ja selvitää kaikkien miinojen sijainti, jolloin voittaa pelin. Jos klikkaa miinaa häviää pelin. 
 ## Käyttöliittymä
-Alustavasti paljon inspiraation alkuperäisestä versiosta. Peliruudukko, jossa peliä pelataan.
+Alustavasti paljon inspiraation alkuperäisestä versiosta. 
+
+Peliruudukko, jossa peliä pelataan.
+
 Endgame ikkuna, joka ilmoittaa voititko vai hävisitkö pelin ja statistiikan liittyen juuri pelattun pelin kokoon. Esimerkiksi jos pelaat 10x10 ruudukon, jossa on 10 miinaa, peli näyttää siihen liittyviä tietoja. Ikkunassa on painikkeet uudelle pelille ja sovelluksen lopetukselle.
+
 Asetusikkuna, jossa voi vaihtaa ruudukon kokoa ja miinojen määrää. 
+
 Statistiikkaikkuna, josta voit valita ruudukon koon ja nähdä siihen liittyvät statistiikat. Painikkeet statistiikan resetoinnille.
+
 <img src="https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/Scan.jpg">
 ## Toiminnallisuudet
  - [X] Toimiva peli. Ruutujen arvot, miinat, klikkailu. 
