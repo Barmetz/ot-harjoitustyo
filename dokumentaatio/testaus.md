@@ -19,7 +19,7 @@ Settings luokkaa testaa TestSettings. Settings luokan tarkoitus on käsitellä t
 Statistics luokka myös käsittelee tiedostoa, kuten Settings. Statistics luokan testauksessa on samat periatteet. Testit luovat statistics_test.csv tiedoston ja poistavat sen ennen assert-komentoja. Mikäli nimi on määritelty samaksi config.py tiedostossa, vaikuttaa testit tallennettuihin tietoihin. Tässä merkitys on keskeisempi, koska testien ajaminen pyyhkisi pelitilastot.
 
 ## Käyttöliittymä
-Käyttöliittymää on testattu manuaalisesti pelaamalla peliä. Testaamiseen käytetystä ajasta ei ole arviota, koska testauksen ja pelaamisen eroa ei kyetty havannoimaan. 
+Käyttöliittymää on testattu manuaalisesti pelaamalla peliä. Testaamiseen käytetystä ajasta ei ole arviota, koska aktiivisen testauksen ja rennon pelaamisen eroa ei kyetty havannoimaan. 
 
 Testeissä on havaittu, että rämppäämällä voi saada klikkauksen rekisteröitymään useamman kerran. Tällä hetkellä sovellus määrittää pelin voittamisen klikkausten määrän mukaan, joten pelin voitto viesti tulee joko liian aikaisin tai sitä ei tule ollenkaan. Klikkausten määrä siis kasvaa liian nopeasti ja huonossa tapauksessa menee yli voittomäärästä. Korjaus on lopetuskonditioiden siirto pelilogiikan puolella, jossain vaiheessa.
 
