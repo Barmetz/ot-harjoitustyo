@@ -46,7 +46,7 @@ class GameUI():
     def game_settings(self):
         """Loads game settings from file and assings them to attributes.
         """
-        self.settings = self.settings_handler.load()
+        self.settings = self.settings_handler.load().split(";")
         self.playheight = int(self.settings[0])
         self.playwidth = int(self.settings[1])
         self.mines = int(self.settings[2])

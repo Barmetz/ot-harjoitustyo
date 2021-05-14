@@ -10,6 +10,7 @@ class Statistics:
         options: Default game settings.
         stats: Used to update statistics of designated game setting.
     """
+
     def __init__(self, filename):
         """Constructor. Sets up default values.
         """

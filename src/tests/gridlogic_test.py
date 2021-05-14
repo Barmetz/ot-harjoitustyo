@@ -32,7 +32,8 @@ class TestMSGrid(unittest.TestCase):
     def test_place(self):
         seed(9)
         self.grid.place(0, 0)
-        self.assertEqual(str(self.grid), "[['0', '1', '1'], ['0', '1', 'M'], ['0', '1', '1']]")
+        self.assertEqual(
+            str(self.grid), "[['0', '1', '1'], ['0', '1', 'M'], ['0', '1', '1']]")
 
     def test_zeropath(self):
         self.grid.grid[0][0].value = "1"
@@ -43,9 +44,10 @@ class TestMSGrid(unittest.TestCase):
     def test_marked_count(self):
         self.grid.grid[1][1].value = "2"
         self.assertEqual(self.grid.adjacent(1, 1), [])
-        
+
     def test_adjacent(self):
         self.grid.grid[1][1].value = "2"
         self.grid.grid[0][0].marked = True
         self.grid.grid[2][2].marked = True
-        self.assertEqual(self.grid.adjacent(1, 1), [[0, 1], [0, 2], [1, 0], [1, 2], [2, 1], [2, 0]])
+        self.assertEqual(self.grid.adjacent(1, 1), [
+                         [0, 1], [0, 2], [1, 0], [1, 2], [2, 1], [2, 0]])

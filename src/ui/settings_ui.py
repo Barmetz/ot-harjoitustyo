@@ -49,7 +49,7 @@ class SettingsUI():
     def current_settings(self):
         """Gets current game settings.
         """
-        self.settings = self.settings_handler.load()
+        self.settings = self.settings_handler.load().split(";")
         self.playheight = int(self.settings[0])
         self.playwidth = int(self.settings[1])
         self.boxsize = int(self.settings[3])
@@ -112,7 +112,7 @@ class SettingsUI():
     def set_states(self):
         """Sets radiobutton states.
         """
-        current = ";".join(self.settings_handler.load())
+        current = self.settings_handler.load()
         if current not in self.options:
             self.widgets[3].select()
         else:

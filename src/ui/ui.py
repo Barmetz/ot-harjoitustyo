@@ -7,6 +7,7 @@ from ui.game_over_ui import GameOverUI
 from ui.statistics_ui import StatisticsUI
 from config import SETTINGS_FILENAME, STATISTICS_FILENAME
 
+
 class UI():
     """Creates all windows and menubar.
     Attributes:
@@ -60,4 +61,3 @@ class UI():
         """Opens the statistics popup.
         """
         StatisticsUI(self.root, self.settings_handler, self.stats_handler)
-        

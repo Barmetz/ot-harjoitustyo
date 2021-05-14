@@ -45,8 +45,8 @@ class Settings:
     def __read(self):
         """Reads a row from file.
         Returns:
-            row.split(';'): Array containing game settings.
+            row: String containing game settings.
         """
         with open(self.__filepath) as file:
             row = next(file)
-            return row.split(';')
+            return row

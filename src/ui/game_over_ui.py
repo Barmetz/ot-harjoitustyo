@@ -44,7 +44,7 @@ class GameOverUI():
     def update_settings(self):
         """Gets current game settings.
         """
-        self.settings = self.settings_handler.load()
+        self.settings = self.settings_handler.load().split(";")
         self.playheight = int(self.settings[0])
         self.playwidth = int(self.settings[1])
         self.boxsize = int(self.settings[3])
@@ -76,8 +76,7 @@ class GameOverUI():
         label.grid(row=3, column=0, sticky=W)
         label = Label(
             self.pop,
-            text=
-            f"Percentage:{self.stats_handler.percentage(int(self.data[1]),int(self.data[2]))}")
+            text=f"Percentage:{self.stats_handler.percentage(int(self.data[1]),int(self.data[2]))}")
         label.grid(row=4, column=0, sticky=W)
         label = Label(self.pop, text=f"Your Time: {timer}")
         label.grid(row=1, column=1, sticky=W)

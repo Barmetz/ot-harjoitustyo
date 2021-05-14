@@ -12,6 +12,7 @@ class StatisticsUI:
         self.labels: Labels displaying statistics.
         pop: Popup window. Everything displayed is here.
     """
+
     def __init__(self, root, settings_handler, stats_handler):
         """Constructor. Sets up attributes.
         Args:
@@ -43,7 +44,7 @@ class StatisticsUI:
     def update_settings(self):
         """Gets current game settings.
         """
-        self.settings = self.settings_handler.load()
+        self.settings = self.settings_handler.load().split(";")
         self.playheight = int(self.settings[0])
         self.playwidth = int(self.settings[1])
         self.boxsize = int(self.settings[3])
