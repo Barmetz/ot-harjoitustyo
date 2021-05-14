@@ -39,12 +39,16 @@ Peli avautuu pelinäkymään:
 
 Ruutuja voi avata klikkaamalla. Avatussa ruudussa oleva numero kertoo kuinka monta miinaa on viereisissä ruuduissa. Miinoja voi merkitä lipulla käyttämällä hiiren oikeaa painiketta. Jos numeron ympäriltä on liputettu sen arvon verran ruutuja, voit tuplaklikkaamalla ruutua avata kaikki vielä kiinni olevat ruudut.
 
-<img src="https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/Avattu.png">
+<img src="https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/Avattu2.png">
 
 Painamalla pelinäkymän vasemmasta yläkulmasta menu ja sitten settings avautuu asetusnäkymä.
 Asetusnäkymästä voi valita ruudun koon ja miinojen määrän valmiista vaihtoehdoista tai syöttää itse valitsemansa arvot oikella olevaan custom kohtaan.
 
 <img src="https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/Settings.png">
+
+Painamalla pelinäkymän vasemmasta yläkulmasta menu ja sitten statistics avautuu statistiikkanäkymä. Näkymän ylhäällä on nappula, josta voi valita tarkasteltavan ruudukon koon. Ruudusta näkyy pelien määrä, voitot, häviöt, voittoprosentti, paras aika ja menossa oleva voitto- tai häviöputki.
+
+<img src="https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/Statistics.png">
 
 Painamalla miinasta häviät pelin. Jos olet liputtanut ruutuja väärin, ne ovat pelin lopussa näkyvissä punaisella X merkinnällä. 
 
@@ -52,4 +56,4 @@ Painamalla miinasta häviät pelin. Jos olet liputtanut ruutuja väärin, ne ova
 
 Voitat pelin avaamalla kaikki ruudut, joissa ei ole miinaa.  
 
-<img src="https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/Voitto.png">
+<img src="https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/Voitto2.png">
