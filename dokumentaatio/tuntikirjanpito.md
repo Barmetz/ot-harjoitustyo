@@ -11,4 +11,5 @@
 |9.5.2021|8h|statistiikka, refaktorointi, widgettejä ei poisteta|
 |13.5.2021|6.5h|statistiikkaUI, dokumentointi|
 ||2h|testit|
-|Total|66h|----|
+|13.5.2021|3h|dokumentointi|
+|Total|69h|----|
