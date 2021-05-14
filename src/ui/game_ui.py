@@ -282,9 +282,9 @@ class GameUI():
         if not self.marked(j, i) and not self.leave:
             if not self.timer:
                 self.grid_obj.place(j, i)
+                self.label_config()
                 self.timer = True
                 self.update_timer()
-                self.label_config()
                 self.root.after(100, self.check_square(j, i))
             else:
                 self.check_square(j, i)
@@ -361,6 +361,7 @@ class GameUI():
             geobool: Tells if the window size needs to be adjusted.
         """
         self.init_attributes()
+        self.text_widgets[0].config(text=f"Timer: {self.timer_count}")
         if geobool:
             self.destroy_widgets()
             self.game_settings()
