@@ -21,6 +21,6 @@ Statistics luokka myös käsittelee tiedostoa, kuten Settings. Statistics luokan
 ## Käyttöliittymä
 Käyttöliittymää on testattu manuaalisesti pelaamalla peliä. Testaamiseen käytetystä ajasta ei ole arviota, koska aktiivisen testauksen ja rennon pelaamisen eroa ei kyetty havannoimaan. 
 
-Testeissä on havaittu, että rämppäämällä voi saada klikkauksen rekisteröitymään useamman kerran. Tällä hetkellä sovellus määrittää pelin voittamisen klikkausten määrän mukaan, joten pelin voittoviesti tulee joko liian aikaisin tai sitä ei tule ollenkaan. Klikkausten määrä siis kasvaa liian nopeasti ja huonossa tapauksessa menee yli voittomäärästä. Korjaus on lopetuskonditioiden siirto pelilogiikan puolella, jossain vaiheessa.
+Testeissä on havaittu, että rämppäämällä voi saada klikkauksen rekisteröitymään useamman kerran. Tällä hetkellä sovellus määrittää pelin voittamisen klikkausten määrän mukaan, joten pelin voittoviesti tulee joko liian aikaisin tai sitä ei tule ollenkaan. Klikkausten määrä siis kasvaa liian nopeasti ja huonossa tapauksessa menee yli voittomäärästä. Korjaus on lopetuskonditioiden siirto pelilogiikan puolella.
 
 Peliä avatessa ja pelin ruudukkokokoa vaihtaessa ensimmäinen piirto välillä kestää pitkään. Ajastamalla GameUI luokan reset metodin eri vaiheita, voidaan sanoa että syy lienee olla tkinter kirjastossa. Vaiheiden kestojen summa pysyy alle 0.5 sekunnissa, mutta piirron näkymiseen voi kestää yli 2 sekuntia. Korjauksesta ei tietoa. Pelin resetointi pysyessä samalla ruudukkokoolla ja avauksen jälkeen on kuitenkin nopea.
