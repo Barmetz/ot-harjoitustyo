@@ -13,6 +13,8 @@ Miinaharava-peli. Tarkoitus käyttää logiikka ja vähän onnea ja etsiä kaikk
 
 [käyttöohje](https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/k%C3%A4ytt%C3%B6ohje.md)
 
+[testaus](https://github.com/ElomaaTapio/ot-harjoitustyo/blob/main/dokumentaatio/testaus.md)
+
 [release](https://github.com/ElomaaTapio/ot-harjoitustyo/releases)
 
 ## Asennus
