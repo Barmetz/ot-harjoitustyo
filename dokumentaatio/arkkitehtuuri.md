@@ -56,3 +56,23 @@ MSGrid luokka tarjoaa käyttöliitymälle ruudukon luomisen lisäksi metodit:
 Zeropath etsii nollista koostuvan polun, sekä polun seinät. Metodi palauttaa ruutujen koordinaatit ja ruutujen lukumäärän. Kun käyttöliittymässä painetaan 0 arvoista ruutua, metodin avulla saadaan avattua kaikki ruudussa kiinni olevat 0 arvoiset ruudut ja niiden naapurit. 
 
 Adjacent metodilla lasketaan, että jos ruudun ympäriltä on merkattu miinoja sen arvon verran, se avaa kaikki muut piilossa olevat ruudut. Mahdollistaa käyttöliittymän tuplaklikkaus ominaisuuden.
+
+## Toiminta
+Sovelluksen avautuessa ui.py:ssä alustetaan kaikki logiikan luokat ja referoidaan ne eri näkymistä vastaaville ui luokille. Myös ui luokat referoidaan toisilleen tarvittaessa. Esim GameUI luokalle referoidaan GameOverUI, koska kun peli päättyy GameUI luokassa, GameOverUI vastaa lopetus popupista. Myös sovelluksen menu luodaan. 
+
+GameUI luokka vastaa itse pelin käyttöliitymästä.  Alussa alustetaan useita attribuutteja. Luokan pohjaideana on kuitenkin kaksiuloitteiset ruudukot tkinter buttoneita ja labeleita. Ruudukot ovat tallennettuina sanakirjoihin ja vastaavat logiikan MSGrid luokassa olevaa ruudukkoa. Kun käyttäjä painaa buttonia, tarkistetaan logiikasta ruudun arvo ja otetaan tarvittavat toimenpiteet. Joka tapauksessa ruudulle buttonin tilalle vaihdetaan labeli, jonka kuvana on ruudun arvo tai miina. 
+
+Ruudun arvosta riippuen on muutamaa vaihtoehto. 
+Nollille lasketaa zeropathilla koordinaatit nolla-polulle ja naapureille, ja kaikien koordinaattien buttoni vaihdetaan labeliin. Numeroarvolle vaihdetaan pelkkä kyseinen ruutu. Miinoille vaihdetaan ruutu ja siirryttään GameOverUI luokkaan ja lopetus-popuppiin. 
+
+Ruutujen liputus tapahtuu muuttamalla klikatun buttonin kuvaa. Pelin lopussa myös tarkistetaan MSGridin avulla onko liputus mennyt oikein ja väärille vaihdetaan osuvampi kuva. 
+
+Buttoneita ja labeleita ei poisteta missään vaiheessa, vaan samoja käytetään myös seuraavassa pelissä. Jos kuitenkin vaihdetaan pelin kokoa, buttonit ja labelit luodaan uudestaan. 
+
+Muut UI luokat ovat melko suorapuheisia. 
+
+GameOverUI katsoo Settings luokalla pelin asetukset ikkunan geometriaa varten. Asetuksia hyödynnetään myös, kun Statistics luokalla näytetään pelikokoon liityvää statistiikkaa. Tiedot näytetään ikkunassa. Käyttäjällä on kaksi vaihtoehtoa. Sulkea sovellus tai aloittaa uusi peli, jolloin kutsutaan vain GameUI:n reset metodia.
+
+StatisticsUI on hyvin samanlainen ikkuna kuin GameOverUI. Ikkunassa näytetään samoja statistiikkoja, mutta käyttäjän valinnan perusteella.
+
+SettingsUI hyödyntää pelkästään Settings luokkaa. Ikkunassa on optioita pelin koolle tai käyttäjä voi syöttää parametrejä itse. Mikäli valitaan valmis optio tai syöttö on kelpoinen, kirjoitetaan uudet asetukset tiedostoon. Kaikki muut luokat lukevat tiedostosta asetukset ja mukautuvat niiden mukaan.
