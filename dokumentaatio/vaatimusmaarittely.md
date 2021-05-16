@@ -21,7 +21,7 @@ Käyttöliittymä koostuu neljästä mahdollisesta ikkunasta. Osaan ikkunoista p
  - [X] Statistiikka + ikkuna.
  - [X] Ensimmäinen avaus on aina 0.
  #### Kehitysideoita
- - [ ] Statistiikan laajennus. Käyttäjät. Useammat highscoret.
+ - [ ] Statistiikan laajennus. Käyttäjät. Useammat highscoret (luultavasti tietokannan avulla).
  - [ ] Toiston poisto Settings ja Statistics luokista. Jokaisessa UI luokassa on myös toistettuna pelin asetusten hakeminen.
  - [ ] Logiikan eriyttäminen vielä enemmän GameUI luokasta. Esim game-over konditiot. 
  - [ ] Animaatiot ja lisäteemat.
